@@ -1,4 +1,9 @@
 package com.github.Seweryn91.WhatTheFridge.repository;
 
-public interface IngredientRepository {
+import com.github.Seweryn91.WhatTheFridge.model.Ingredient;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface IngredientRepository extends JpaRepository<Ingredient, Long> {
 }
