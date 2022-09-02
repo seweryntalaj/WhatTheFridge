@@ -26,4 +26,5 @@ public interface DishRepository extends JpaRepository<Dish, Long> {
             "WHERE i.name IN :names AND sweetdish = FALSE ORDER BY d.name ASC", nativeQuery = true)
     Set<Dish> findSavoryByIngredientNamesIn(@Param("names") Set<String> ingredientNames);
 
+    Dish findByName(String name);
 }
