@@ -3,9 +3,11 @@ package com.github.Seweryn91.WhatTheFridge.service;
 import com.github.Seweryn91.WhatTheFridge.model.Ingredient;
 import com.github.Seweryn91.WhatTheFridge.repository.IngredientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class IngredientServiceImpl implements IngredientService {
 
     @Autowired
