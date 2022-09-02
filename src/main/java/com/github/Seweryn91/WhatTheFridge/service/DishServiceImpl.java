@@ -19,7 +19,7 @@ public class DishServiceImpl implements DishService {
     private void setDishRepository(DishRepository dishRepository) {
         this.dishRepository = dishRepository;
     }
-    
+
     @Transactional
     public List<Dish> getDishList() {
         return dishRepository.findAll();
