@@ -8,7 +8,7 @@ import java.util.Set;
 @Entity
 @Table(name = "Dish")
 public class Dish implements Serializable {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -89,10 +89,7 @@ public class Dish implements Serializable {
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
-        if (!(obj instanceof Dish)) return false;
-
-        Dish otherDish = (Dish) obj;
-
+        if (!(obj instanceof Dish otherDish)) return false;
         return getName() != null ? getName().equals(otherDish.getName()) : otherDish.getName() == null;
     }
 
