@@ -8,8 +8,7 @@ import java.util.Set;
 @Entity
 @Table(name = "Dish")
 public class Dish implements Serializable {
-
-
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
