@@ -10,7 +10,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Controller
 public class DishController {
@@ -68,6 +69,38 @@ public class DishController {
     public String showAllDishes(Model model) {
         model.addAttribute("alldishes", dishService.getDishList());
         return "all";
+    }
+
+    @GetMapping("/dish/update/{id}")
+    public String updateDish(@PathVariable("id") long id, Model model) {
+        Dish dish = dishService.getDishById(id);
+        model.addAttribute("dish", dish);
+        Set<Ingredient> dishIngredients = dishService.getIngredients(id);
+        List<Ingredient> allIngredients = new ArrayList<>(ingredientService.getAllIngredients());
+        getIngredientSetFromMap(getCheckedIngredientsMap(dishIngredients, allIngredients));
+        model.addAttribute("map", getCheckedIngredientsMap(dishIngredients, allIngredients));
+        return "updatedish";
+    }
+
+    public Map<Ingredient, Boolean> getCheckedIngredientsMap(Collection<Ingredient> dishIngredients,
+                                                             Collection<Ingredient> allIngredients) {
+        Map<Ingredient, Boolean> ingredientsPresentInDish = new TreeMap<>();
+
+        for (Ingredient ingredient : allIngredients) ingredientsPresentInDish.put(ingredient, false);
+
+        for (Ingredient dishIngredient : dishIngredients) {
+            for (Ingredient availableIngredient : allIngredients) {
+                if (availableIngredient.equals(dishIngredient)) {
+                    ingredientsPresentInDish.put(availableIngredient, true);
+                }
+            }
+        }
+        return ingredientsPresentInDish;
+    }
+
+    public Set<Ingredient> getIngredientSetFromMap(Map<Ingredient, Boolean> dishIngredientsMap) {
+        return dishIngredientsMap.entrySet().stream().filter(entry -> Objects.equals(entry.getValue(), true))
+                .map(Map.Entry::getKey).collect(Collectors.toSet());
     }
 
 }
