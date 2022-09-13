@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class IngredientController {
@@ -18,5 +20,11 @@ public class IngredientController {
         Ingredient ingredient = new Ingredient();
         model.addAttribute("ingredient", ingredient);
         return "newingredient";
+    }
+
+    @PostMapping("ingredient/save")
+    public String saveIngredient(@ModelAttribute("ingredient") Ingredient ingredient) {
+        ingredientService.saveIngredient(ingredient);
+        return "redirect:/";
     }
 }
