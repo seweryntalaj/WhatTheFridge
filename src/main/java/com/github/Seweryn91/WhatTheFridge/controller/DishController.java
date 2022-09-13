@@ -36,11 +36,17 @@ public class DishController {
         model.addAttribute("ingredients", ingredientsSorted);
         return "dish";
     }
-    
+
     @GetMapping("/dish/delete/{id}")
     public String deleteDish(@PathVariable("id") long id) {
         dishService.deleteDishById(id);
         return "redirect:/";
+    }
+
+    @GetMapping("/dishes/all")
+    public String showAllDishes(Model model) {
+        model.addAttribute("alldishes", dishService.getDishList());
+        return "all";
     }
 
 }
