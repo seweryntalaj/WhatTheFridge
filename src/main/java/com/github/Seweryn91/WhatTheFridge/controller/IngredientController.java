@@ -23,7 +23,7 @@ public class IngredientController {
         return "newingredient";
     }
 
-    @PostMapping("ingredient/save")
+    @PostMapping("/ingredient/save")
     public String saveIngredient(@ModelAttribute("ingredient") Ingredient ingredient) {
         ingredientService.saveIngredient(ingredient);
         return "redirect:/";
@@ -35,7 +35,7 @@ public class IngredientController {
         model.addAttribute("ingredient", ingredient);
         return "updateingredient";
     }
-    
+
     @GetMapping("/ingredient/delete/{id}")
     public String deleteIngredient(@PathVariable("id") long id) {
         ingredientService.deleteIngredientById(id);
