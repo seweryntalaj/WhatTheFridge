@@ -7,6 +7,7 @@ import com.github.Seweryn91.WhatTheFridge.service.IngredientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.MultiValueMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -81,6 +82,29 @@ public class DishController {
         model.addAttribute("map", getCheckedIngredientsMap(dishIngredients, allIngredients));
         return "updatedish";
     }
+
+    @GetMapping(value = "/dishes")
+    String getDishesOfType(@RequestParam MultiValueMap<String, String> parameterMap,
+                           @RequestParam(required = false) Optional<String> dishType,
+                           Model model) {
+        Set<String> ingredientsSet = new TreeSet<>();
+
+        if (dishType.isEmpty() || dishType.get().equals("both")) {
+            for (String key : parameterMap.keySet()) ingredientsSet.addAll(parameterMap.get(key));
+            model.addAttribute("dishes", dishService.findByIngredientNamesIn(ingredientsSet));
+        }
+        if (dishType.isPresent() && dishType.get().equals("savory")) {
+            for (String key : parameterMap.keySet()) ingredientsSet.addAll(parameterMap.get(key));
+            model.addAttribute("dishes", dishService.findSavoryByIngredientNamesIn(ingredientsSet));
+        }
+        if (dishType.isPresent() && dishType.get().equals("sweet")) {
+            for (String key : parameterMap.keySet()) ingredientsSet.addAll(parameterMap.get(key));
+            model.addAttribute("dishes", dishService.findSweetByIngredientNamesIn(ingredientsSet));
+        }
+
+        return "dishes";
+    }
+
 
     public Map<Ingredient, Boolean> getCheckedIngredientsMap(Collection<Ingredient> dishIngredients,
                                                              Collection<Ingredient> allIngredients) {
