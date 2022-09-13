@@ -30,9 +30,15 @@ public class IngredientController {
     }
 
     @GetMapping("/ingredient/update/{id}")
-    public String updateIngredientForm(@PathVariable("id") long id, Model model) {
+    public String updateIngredient(@PathVariable("id") long id, Model model) {
         Ingredient ingredient = ingredientService.getIngredientById(id);
         model.addAttribute("ingredient", ingredient);
         return "updateingredient";
+    }
+    
+    @GetMapping("/ingredient/delete/{id}")
+    public String deleteIngredient(@PathVariable("id") long id) {
+        ingredientService.deleteIngredientById(id);
+        return "redirect:/";
     }
 }
