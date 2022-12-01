@@ -5,15 +5,8 @@
     <title>What The Fridge?!</title>
 </head>
 <body>
-<p>Choose ingredients you have handy:</p>
-<form action="/dishes">
-    <input type="checkbox" th:each="ingredient: ${ingredients}" th:value="${ingredient.name}"
-           name="ingredient" th:text="${ingredient.name}">
-    <br>
-    <input type="radio" name="isSweet" id="BOTH" value="SWEET AND SAVORY"><label for="BOTH">Sweet and Savory</label><br>
-    <input type="radio" name="isSweet" id="SAVORY" value="SAVORY"><label for="SAVORY">Savory</label><br>
-    <input type="radio" name="isSweet" id="SWEET" value="SWEET"><label for="SWEET">Sweet</label><br>
-    <input type="submit" value="WHAT THE FRIDGE?!">
-</form>
+<p>No idea about what to eat?</p>
+<p>Do you have salt, oil, water and other basic ingredients handy? If so, check your fridge and pantry,
+check our checklist and explore dishes you can make with these.</p>
 </body>
 </html>
