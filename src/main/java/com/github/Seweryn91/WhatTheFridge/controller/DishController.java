@@ -11,6 +11,8 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -31,11 +33,24 @@ public class DishController {
     }
 
     @GetMapping("/dish/get/{id}")
-    public String getDish(@PathVariable("id") long id, Model model) {
+    @SuppressWarnings("unchecked")
+    public String getDish(@PathVariable("id") long id, Model model, HttpServletRequest request) {
         Dish dish = dishService.getDishById(id);
         model.addAttribute("dish", dish);
         List<Ingredient> ingredientsSorted = dish.getIngredients().stream().sorted().toList();
         model.addAttribute("ingredients", ingredientsSorted);
+
+        if (request.getSession().getAttribute("storedIngredients") != null) {
+            HashSet<Ingredient> storedIngredients = (HashSet<Ingredient>) request.getSession()
+                    .getAttribute("storedIngredients");
+
+            List<Ingredient> storedCopy = new ArrayList<>(storedIngredients);
+            storedCopy.retainAll(dish.getIngredients());
+            model.addAttribute("storedIngredients", storedCopy);
+            Collection<Ingredient> missingIngredients = new TreeSet<>(dish.getIngredients());
+            missingIngredients.removeAll(storedCopy);
+            model.addAttribute("missing", missingIngredients);
+        }
         return "dish";
     }
 
