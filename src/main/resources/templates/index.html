@@ -10,9 +10,9 @@
     <input type="checkbox" th:each="ingredient: ${ingredients}" th:value="${ingredient.name}"
            name="ingredient" th:text="${ingredient.name}">
     <br>
-    <input type="radio" name="isSweet" id="BOTH" value="SWEET AND SAVORY"><label for="BOTH">SWEET AND SAVORY</label>
-    <input type="radio" name="isSweet" id="SAVORY" value="SAVORY">
-    <input type="radio" name="isSweet" id="SWEET" value="SWEET">
+    <input type="radio" name="isSweet" id="BOTH" value="SWEET AND SAVORY"><label for="BOTH">Sweet and Savory</label><br>
+    <input type="radio" name="isSweet" id="SAVORY" value="SAVORY"><label for="SAVORY">Savory</label><br>
+    <input type="radio" name="isSweet" id="SWEET" value="SWEET"><label for="SWEET">Sweet</label><br>
     <input type="submit" value="WHAT THE FRIDGE?!">
 </form>
 </body>
