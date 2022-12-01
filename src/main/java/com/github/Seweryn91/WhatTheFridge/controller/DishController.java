@@ -121,6 +121,13 @@ public class DishController {
     }
 
 
+
+    /**
+     * Returns a Map of Ingredients which are checked (TRUE) if an Ingredient is present in the Dish.
+     * @param dishIngredients collection of Ingredients that are contained in the field "ingredients" of Dish object
+     * @param allIngredients collection of all Ingredient objects
+     * @return map of ingredients contained in Dish
+     */
     public Map<Ingredient, Boolean> getCheckedIngredientsMap(Collection<Ingredient> dishIngredients,
                                                              Collection<Ingredient> allIngredients) {
         Map<Ingredient, Boolean> ingredientsPresentInDish = new TreeMap<>();
