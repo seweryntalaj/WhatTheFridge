@@ -144,6 +144,11 @@ public class DishController {
         return ingredientsPresentInDish;
     }
 
+    /**
+     * Filters and returns Ingredients that are checked (TRUE) from map.
+     * @param dishIngredientsMap map containing all Ingredients
+     * @return set of checked (TRUE) Ingredients
+     */
     public Set<Ingredient> getIngredientSetFromMap(Map<Ingredient, Boolean> dishIngredientsMap) {
         return dishIngredientsMap.entrySet().stream().filter(entry -> Objects.equals(entry.getValue(), true))
                 .map(Map.Entry::getKey).collect(Collectors.toSet());
