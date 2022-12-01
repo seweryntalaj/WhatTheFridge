@@ -1,10 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="https://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Ingredients</title>
 </head>
 <body>
+<form action="/dishes">
+    <input type="checkbox" th:each="ingredient: ${ingredients}"
+           th:value="${ingredient.name}" name="ingredient" th:text="${ingredient.name}">
+    <br>
+    <br>
 
+    <input type="radio" name="dishType" id="BOTH" value="both"><label for="BOTH">SWEET AND SAVORY</label>
+    <br>
+    <input type="radio" name="dishType" id="SAVORY" value="savory"><label for="SAVORY">SAVORY</label>
+    <br>
+    <input type="radio" name="dishType" id="SWEET" value="sweet"><label for="SWEET">SWEET</label>
+
+    <br>
+
+    <input type="submit" value="WHAT THE FRIDGE?!">
+</form>
 </body>
 </html>
