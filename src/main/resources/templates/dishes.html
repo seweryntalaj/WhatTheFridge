@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dishes found</title>
+</head>
+<body>
+<div id="selectedIngsMap">Ingredients selected:</div>
+<p th:each="entry : ${set}" th:text="${entry.name}"></p>
+</div>
+
+<div th:if="${!dishes.empty}">
+  <table>
+    <tr>
+      <th>Dishes found</th>
+    </tr>
+    <tr th:each="dish: ${dishes}">
+      <td>
+        <a th:href="@{'/dish/get/' + ${dish.id}}" th:text="${dish.name}"></a>
+      </td>
+    </tr>
+  </table>
+</div>
+
+</table>
+
+<div th:if="${dishes.empty}">No dishes found for selected ingredients :(</div>
+<br>
+<form>
+  <input type="button" value="Go back!" onclick="history.back()">
+</form>
+</body>
+</html>
