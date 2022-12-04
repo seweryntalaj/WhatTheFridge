@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>What The Fridge? New dish</title>
+</head>
+<body>
+<div class="container">
+    <h1>New Dish</h1>
+    <hr>
+    <form action="#" th:action="@{'/dish/save/'}" th:object="${dish}" method="POST">
+        <label for="dishName">Dish name</label>
+        <input id="dishName" type="text" th:field="*{name}" placeholder="Dish name" class="form-control mb-4 col-4"><br>
+        <label for="isSweet">Is sweet:</label>
+        <input id="isSweet" type="checkbox" label="is sweet?" th:field="*{sweetDish}" th:checked="*{sweetDish}">
+        <br>
+        <tr>
+            <td>Ingredients</td>
+            <td>
+                <th:block th:each="ingredient : ${ingredients}">
+                    <input type="checkbox" name="ings" th:value="${ingredient.id}"/>
+                    <label th:text="${ingredient.name}"></label>
+                </th:block>
+            </td>
+        </tr>
+
+        <input type="text" th:field="*{pictureLink}" placeholder="Picture link" class="form-control mb-4 col-4"><br>
+        <input type="text" th:field="*{recipeLink}" placeholder="Recipe link" class="form-control mb-4 col-4"><br>
+
+        <button type="submit" class="btn btn-info col-2">Save Dish</button>
+    </form>
+
+    <hr>
+
+    <a th:href="@{/}"> Back to Ingredient List</a>
+</div>
+</body>
+</html>
