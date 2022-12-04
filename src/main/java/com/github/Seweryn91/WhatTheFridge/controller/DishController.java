@@ -101,8 +101,15 @@ public class DishController {
     @GetMapping(value = "/dishes")
     String getDishesOfType(@RequestParam MultiValueMap<String, String> parameterMap,
                            @RequestParam(required = false) Optional<String> dishType,
-                           Model model) {
+                           Model model, HttpServletRequest request) {
         Set<String> ingredientsSet = new TreeSet<>();
+        Set<Ingredient> selectedIngredients;
+
+        if (request.getParameterValues("ingredient").length != 0) {
+            selectedIngredients = Arrays.stream(request.getParameterValues("ingredient"))
+                .map((s -> ingredientService.getIngredientByName(s))).collect(Collectors.toSet());
+            model.addAttribute("set", selectedIngredients);
+        }
 
         if (dishType.isEmpty() || dishType.get().equals("both")) {
             for (String key : parameterMap.keySet()) ingredientsSet.addAll(parameterMap.get(key));
