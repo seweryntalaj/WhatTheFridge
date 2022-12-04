@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Update Dish</title>
+</head>
+<body>
+<div th:if="${dish} != null">
+    <h1>Edit dish</h1>
+    <hr>
+    <form action="#" th:action="@{/dish/save/}" th:object="${dish}" method="POST">
+        <input type="number" th:field="*{id}" hidden="hidden">
+        Dish name: <input type="text" th:field="*{name}" placeholder="Dish name"
+                          class="form-control mb-4 col-4"><br>
+        Is sweet:<input type="checkbox" label="is sweet?" th:field="*{sweetDish}">
+        <br>
+        <div name="ingredients">
+            <tr>
+                <td>Ingredients</td>
+                <td>
+                    <th:block th:each="ingredientEntry : ${map}">
+                        <input type="checkbox" class="ingredientsMap" name="ings"
+                               th:value="${ingredientEntry.key.id}"
+                               th:checked="${ingredientEntry.value}">
+                        <label th:text="${ingredientEntry.key.name}"
+                               th:for="${#ids.next('ingredientsMap[__${ingredientEntry.key}__].name')}"></label>
+                    </th:block>
+                </td>
+            </tr>
+
+            <br>
+            Picture link: <input type="text" th:field="*{pictureLink}" th:value="*{pictureLink}"
+                                 placeholder="Picture link">
+            <br>
+            Recipe link: <input type="text" th:field="*{recipeLink}" placeholder="Recipe link"
+                                class="form-control mb-4 col-4">
+            <br>
+
+            <button type="submit" class="btn btn-info col-2">Save Dish</button>
+    </form>
+
+
+</div>
+<div th:unless="${dish} != null">Dish not found!
+</div>
+<a th:href="@{/}"> Back to Ingredient List</a>
+</body>
+</html>
