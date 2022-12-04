@@ -1,10 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
     <title>New Ingredient</title>
 </head>
 <body>
+<div class="container">
+    <h1>New Ingredient</h1>
+    <hr>
+    <h2>Create Ingredient</h2>
 
+    <form action="#" th:action="@{/ingredient/save}" th:object="${ingredient}" method="POST">
+        <input type="text" th:field="*{name}" placeholder="Ingredient name" class="form-control mb-4 col-4">
+        <button type="submit" class="btn btn-info col-2">Save Ingredient</button>
+    </form>
+
+    <hr>
+
+    <a th:href="@{/}"> Back to Ingredient List</a>
+</div>
 </body>
 </html>
