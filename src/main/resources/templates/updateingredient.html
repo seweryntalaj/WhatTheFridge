@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Update ingredient</title>
+</head>
+<body>
+<div class="container">
+  <h1>Ingredient</h1>
+  <hr>
+  <h2>Update ingredient</h2>
+
+  <form action="#" th:action="@{/ingredient/save}" th:object="${ingredient}" method="POST">
+    <input type="hidden" th:field="*{id}">
+    <input type="text" th:field="*{name}">
+    <button type="submit">Update Ingredient</button>
+  </form>
+
+  <hr>
+
+  <a th:href = "@{/}">Back to ingredients list</a>
+</div>
+</body>
+</html>
