@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>What The Fridge? View dish</title>
+</head>
+<body>
+<div th:if="${dish} != null">
+  <div class="container">
+    <h1 th:text="${dish.name}"></h1>
+    <hr>
+    <div id="pictureDiv">
+      <div th:if="${dish.pictureLink} == null">
+        NO PICTURE FOUND
+      </div>
+    </div>
+    <div th:if="${dish.pictureLink} != null">
+      <img th:src="${dish.pictureLink}">
+    </div>
+  </div>
+  <table name="dishInfo">
+    <br>
+    Is sweet: <input type="checkbox" th:name="*{dish.sweetDish}" label="is sweet?"
+                     th:checked="*{dish.sweetDish}" disabled="disabled">
+    <br>
+    <div name="ingredients">
+      <div th:if="${storedIngredients} == null">
+        Ingredients:
+        <input checked="true" type="checkbox" id="ingredients" name="ingredients" th:each="ingredient: ${ingredients}" ]
+               th:text="${ingredient.name}" th:value="${ingredient.name}" disabled="disabled"></td>
+      </div>
+      <div>
+        <!-- list of selected ingredients-->
+        <a th:if="${storedIngredients} != null">WHAT YOU HAVE</a>
+        <a th:each="i: ${storedIngredients}">
+          <div th:if="i != null">
+            <a th:text="${i.name}"></a></div>
+          <br>
+          <!-- list of all dishIngredients minus selected-->
+          <div th:if="${missing} != null and ${!missing.empty}">
+            WHAT TO BUY
+            <a th:each="i: ${missing}">
+              <div th:if="i != null">
+                <a th:text="${i.name}"></a></div>
+              <br>
+            </a>
+          </div>
+        </a>
+      </div>
+    </div>
+    <br>
+    <div th:unless="${dish.recipeLink != null OR dish.recipeLink != ''}">
+      Recipe link <a href="${recipeLink}">HERE</a>
+      <span id="recipeLink" th:if="${recipeLink!=null}">Recipe link <a href="${recipeLink}">HERE</a></span>
+    </div>
+  </table>
+</div>
+</div>
+<div th:unless="${dish} != null">
+  Dish not found!
+</div>
+<input onclick='javascript:window.history.back()' value='Back to recipe list' type='button' />
+<a th:href="@{/}">New search</a>
+</body>
+</html>
