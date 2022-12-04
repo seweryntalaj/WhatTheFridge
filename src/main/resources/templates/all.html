@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dishes found</title>
+</head>
+<body>
+
+<div th:if="${!alldishes.empty}">
+    <table>
+        <tr>
+            <th>All dishes</th>
+        </tr>
+        <tr th:each="dish: ${alldishes}">
+            <td>
+                <span th:text="${dish.id}"></span>
+                <a th:href="@{'/dish/get/' + ${dish.id}}" th:text="${dish.name}"></a>
+                <a th:href="@{'/dish/update/' + ${dish.id}}">UPDATE</a>
+            </td>
+        </tr>
+    </table>
+</div>
+
+</table>
+<div th:if="${alldishes.empty}">No dishes found for selected ingredients :(</div>
+<br>
+<form>
+    <input type="button" value="Go back!" onclick="history.back()">
+</form>
+</body>
+</html>
