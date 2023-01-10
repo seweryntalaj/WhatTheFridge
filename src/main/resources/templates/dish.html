@@ -31,24 +31,21 @@
       </div>
       <div>
         <!-- list of selected ingredients-->
-        <a th:if="${storedIngredients} != null">WHAT YOU HAVE</a>
+        <a th:if="${storedIngredients} != null" >WHAT YOU HAVE</a>
         <a th:each="i: ${storedIngredients}">
-          <div th:if="i != null">
-            <a th:text="${i.name}"></a></div>
+          <!--<div th:if="i != null">-->
+          <a th:text="${i.name}">ingredient</a></a>
           <br>
           <!-- list of all dishIngredients minus selected-->
-          <div th:if="${missing} != null and ${!missing.empty}">
-            WHAT TO BUY
-            <a th:each="i: ${missing}">
-              <div th:if="i != null">
-                <a th:text="${i.name}"></a></div>
-              <br>
-            </a>
-          </div>
-        </a>
       </div>
-    </div>
-    <br>
+
+      <div th:if="${missing != null AND !missing.empty}">WHAT YOU NEED:
+        <a th:each="i: ${missing}">
+        <a th:text="${i.name}">ingredient</a></a>
+      </div>
+
+
+      <br>
     <div th:unless="${dish.recipeLink != null OR dish.recipeLink != ''}">
       Recipe link <a href="${recipeLink}">HERE</a>
       <span id="recipeLink" th:if="${recipeLink!=null}">Recipe link <a href="${recipeLink}">HERE</a></span>
