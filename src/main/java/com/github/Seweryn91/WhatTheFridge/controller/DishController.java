@@ -10,9 +10,8 @@ import org.springframework.ui.Model;
 import org.springframework.util.MultiValueMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
-import javax.persistence.criteria.CriteriaBuilder;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -37,21 +36,45 @@ public class DishController {
     public String getDish(@PathVariable("id") long id, Model model, HttpServletRequest request) {
         Dish dish = dishService.getDishById(id);
         model.addAttribute("dish", dish);
-        List<Ingredient> ingredientsSorted = dish.getIngredients().stream().sorted().toList();
-        model.addAttribute("ingredients", ingredientsSorted);
+        List<Ingredient> allDishIngredients = dish.getIngredients().stream().sorted().toList();
+        model.addAttribute("ingredients", allDishIngredients);
 
-        if (request.getSession().getAttribute("storedIngredients") != null) {
-            HashSet<Ingredient> storedIngredients = (HashSet<Ingredient>) request.getSession()
-                    .getAttribute("storedIngredients");
+        if (request.getSession().getAttribute("set") != null) {
+            HashSet<Ingredient> allSelectedIngredients = (HashSet<Ingredient>) request.getSession()
+                    .getAttribute("set");
 
-            List<Ingredient> storedCopy = new ArrayList<>(storedIngredients);
-            storedCopy.retainAll(dish.getIngredients());
-            model.addAttribute("storedIngredients", storedCopy);
-            Collection<Ingredient> missingIngredients = new TreeSet<>(dish.getIngredients());
-            missingIngredients.removeAll(storedCopy);
-            model.addAttribute("missing", missingIngredients);
+            List<Ingredient> allSelectedList = getAllSelectedList(allSelectedIngredients);
+            model.addAttribute("storedIngredients", getListOfAvailableIngsForDish(dish, allSelectedList));
+            Collection<Ingredient> missing = getListOfMissingIngsForDish(dish, allSelectedList);
+            model.addAttribute("missing", missing);
         }
         return "dish";
+    }
+
+    /**
+     * Returns a sorted list of Ingredients which were selected in order not to override equals() and hashCode().
+     * @param allSelectedIngredients collection of Ingredients to be collected.
+     * @return sorted list of ingredients.
+     */
+    private List<Ingredient> getAllSelectedList(Collection<Ingredient> allSelectedIngredients) {
+        List<Ingredient> allSelectedList = new ArrayList<>();
+        for (Ingredient i : allSelectedIngredients) {
+            allSelectedList.add(ingredientService.getIngredientByName(i.getName()));
+        }
+        Collections.sort(allSelectedList);
+        return allSelectedList;
+    }
+
+    Collection<Ingredient> getListOfAvailableIngsForDish(Dish dish, Collection<Ingredient> storedIngredients) {
+        storedIngredients.retainAll(dish.getIngredients());
+        return storedIngredients;
+    }
+
+    Collection<Ingredient> getListOfMissingIngsForDish(Dish dish,
+                                                 Collection<Ingredient> storedIngs) {
+        Collection<Ingredient> missingIngredients = new TreeSet<>(dish.getIngredients());
+        missingIngredients.removeAll(storedIngs);
+        return missingIngredients;
     }
 
 
@@ -98,17 +121,24 @@ public class DishController {
         return "updatedish";
     }
 
+    void storeIngredientsInSession(HttpServletRequest request, Model model) {
+        HttpSession session = request.getSession();
+        Set<Ingredient> selectedIngredients = Arrays.stream(request.getParameterValues("ingredient"))
+                .map((s -> ingredientService.getIngredientByName(s))).collect(Collectors.toSet());
+        session.setAttribute("set", selectedIngredients);
+        model.addAttribute("set", selectedIngredients);
+    }
+
     @GetMapping(value = "/dishes")
     String getDishesOfType(@RequestParam MultiValueMap<String, String> parameterMap,
                            @RequestParam(required = false) Optional<String> dishType,
                            Model model, HttpServletRequest request) {
         Set<String> ingredientsSet = new TreeSet<>();
-        Set<Ingredient> selectedIngredients;
+        Set<Ingredient> selectedIngredients = new TreeSet<>();
 
-        if (request.getParameterValues("ingredient").length != 0) {
-            selectedIngredients = Arrays.stream(request.getParameterValues("ingredient"))
-                .map((s -> ingredientService.getIngredientByName(s))).collect(Collectors.toSet());
-            model.addAttribute("set", selectedIngredients);
+        if (request.getParameterValues("ingredient") != null &&
+                request.getParameterValues("ingredient").length > 0) {
+            storeIngredientsInSession(request, model);
         }
 
         if (dishType.isEmpty() || dishType.get().equals("both")) {
