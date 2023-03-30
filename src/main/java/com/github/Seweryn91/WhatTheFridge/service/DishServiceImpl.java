@@ -33,7 +33,7 @@ public class DishServiceImpl implements DishService {
     }
 
     @Transactional
-    public Dish getDishById(long id) { //fix that
+    public Dish findDishById(long id) { //fix that
         Optional<Dish> optional = dishRepository.findById(id);
         Dish dish = null;
         if (optional.isPresent()) dish = optional.get();

@@ -8,7 +8,7 @@ import java.util.Set;
 
 public interface DishService {
 
-    Dish getDishById(long id);
+    Dish findDishById(long id);
 
     List<Dish> getDishList();
 
