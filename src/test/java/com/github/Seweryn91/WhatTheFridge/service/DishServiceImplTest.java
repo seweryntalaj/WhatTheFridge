@@ -130,14 +130,14 @@ class DishServiceImplTest {
     public void test_getDishById() {
         when(dishRepository.findById(anyLong())).thenReturn(Optional.of(dish));
         Dish foundDish = dishService.findDishById(1L);
-        assertEquals(foundDish, dish);
+        assertEquals(dish, foundDish);
     }
 
     @Test
     public void test_getDishByName() {
         when(dishRepository.findByName(anyString())).thenReturn(dish);
         Dish foundDish = dishService.findByName("");
-        assertEquals(foundDish, dish);
+        assertEquals(dish, foundDish);
     }
 
     @Test
