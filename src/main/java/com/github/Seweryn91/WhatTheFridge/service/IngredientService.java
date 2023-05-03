@@ -12,7 +12,7 @@ public interface IngredientService {
 
     Ingredient getIngredientById(long id);
 
-    void deleteIngredientById(long id);
+    void deleteIngredient(Ingredient ingredient);
 
     Ingredient getIngredientByName(String name);
 
