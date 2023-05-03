@@ -33,18 +33,17 @@ public class DishServiceImpl implements DishService {
     }
 
     @Transactional
-    public Dish findDishById(long id) { //fix that
+    public Dish findDishById(long id) {
         Optional<Dish> optional = dishRepository.findById(id);
         Dish dish = null;
         if (optional.isPresent()) dish = optional.get();
-        else throw new RuntimeException("Dish not found for id ::" + id);
+        else throw new RuntimeException("Dish not found for id :" + id);
         return dish;
     }
 
     @Override
     @Transactional
     public void delete(Dish dish) {
-        //Dish dish = dishRepository.getReferenceById(id);
         dishRepository.delete(dish);
     }
 
