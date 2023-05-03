@@ -140,7 +140,6 @@ class DishServiceImplTest {
         assertEquals(foundDish, dish);
     }
 
-
     @Test
     public void test_findDishById_throwsException() {
       assertThrows(RuntimeException.class, () -> dishService.findDishById(-1L) );
@@ -157,8 +156,6 @@ class DishServiceImplTest {
       when(dishRepository.findById(anyLong())).thenReturn(Optional.of(mock));
       assertEquals(ingredients, dishService.getIngredients(1L));
     }
-
-
 
     @Test
     public void test_findByIngredientsNameIn() {
@@ -178,7 +175,6 @@ class DishServiceImplTest {
       when(dishRepository.findSweetByIngredientNamesIn(Set.of(anyIngredientName))).thenReturn(expected);
       assertEquals(expected, dishService.findSweetByIngredientNamesIn(Set.of(anyIngredientName)));
   }
-
 
     @Test
     public void test_findSavoryByIngredientsNameIn() {
