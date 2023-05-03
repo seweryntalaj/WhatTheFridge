@@ -43,8 +43,8 @@ public class DishServiceImpl implements DishService {
 
     @Override
     @Transactional
-    public void deleteDishById(Long id) {
-        Dish dish = dishRepository.getReferenceById(id);
+    public void delete(Dish dish) {
+        //Dish dish = dishRepository.getReferenceById(id);
         dishRepository.delete(dish);
     }
 

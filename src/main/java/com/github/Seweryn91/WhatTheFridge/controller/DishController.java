@@ -34,7 +34,7 @@ public class DishController {
     @GetMapping("/dish/get/{id}")
     @SuppressWarnings("unchecked")
     public String getDish(@PathVariable("id") long id, Model model, HttpServletRequest request) {
-        Dish dish = dishService.getDishById(id);
+        Dish dish = dishService.findDishById(id);
         model.addAttribute("dish", dish);
         List<Ingredient> allDishIngredients = dish.getIngredients().stream().sorted().toList();
         model.addAttribute("ingredients", allDishIngredients);
@@ -100,7 +100,7 @@ public class DishController {
 
     @GetMapping("/dish/delete/{id}")
     public String deleteDish(@PathVariable("id") long id) {
-        dishService.deleteDishById(id);
+        dishService.delete(dishService.findDishById(id));
         return "redirect:/";
     }
 
@@ -112,7 +112,7 @@ public class DishController {
 
     @GetMapping("/dish/update/{id}")
     public String updateDish(@PathVariable("id") long id, Model model) {
-        Dish dish = dishService.getDishById(id);
+        Dish dish = dishService.findDishById(id);
         model.addAttribute("dish", dish);
         Set<Ingredient> dishIngredients = dishService.getIngredients(id);
         List<Ingredient> allIngredients = new ArrayList<>(ingredientService.getAllIngredients());

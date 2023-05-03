@@ -14,7 +14,7 @@ public interface DishService {
 
     Set<Ingredient> getIngredients(long dishId);
 
-    void deleteDishById(Long dishId);
+    void delete(Dish dish);
 
     Set<Dish> findByIngredientNamesIn(Set<String> ingredientsNames);
 
