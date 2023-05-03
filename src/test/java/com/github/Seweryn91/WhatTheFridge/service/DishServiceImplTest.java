@@ -110,7 +110,7 @@ class DishServiceImplTest {
     @Test
     public void test_deleteDish() {
         dishService.delete(dish);
-        Mockito.verify(dishRepository, Mockito.times(1)).delete(dish);
+        verify(dishRepository, times(1)).delete(dish);
     }
 
     @Test
