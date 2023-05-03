@@ -54,15 +54,9 @@ class DishServiceImplTest {
         return dish;
     }
 
-    private void createList() {
-      List<Dish> dishes = dishRepository.findAll();
-      dishes.forEach(System.out::println);
-    }
-
     @BeforeAll
     public void setUp() {
         dish = createDish();
-        createList();
     }
 
     public Set<Ingredient> createIngredientsSet() {
