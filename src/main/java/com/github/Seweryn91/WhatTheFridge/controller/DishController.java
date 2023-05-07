@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.MultiValueMap;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -39,13 +38,13 @@ public class DishController {
         List<Ingredient> allDishIngredients = dish.getIngredients().stream().sorted().toList();
         model.addAttribute("ingredients", allDishIngredients);
 
-        if (request.getSession().getAttribute("set") != null) {
-            HashSet<Ingredient> allSelectedIngredients = (HashSet<Ingredient>) request.getSession()
-                    .getAttribute("set");
+        if (request.getSession().getAttribute("chosenIngredients") != null) {
+            List<Ingredient> allSelectedIngredients = (List<Ingredient>) request.getSession()
+                    .getAttribute("chosenIngredients");
 
-            List<Ingredient> allSelectedList = getAllSelectedList(allSelectedIngredients);
-            model.addAttribute("storedIngredients", getListOfAvailableIngsForDish(dish, allSelectedList));
-            Collection<Ingredient> missing = getListOfMissingIngsForDish(dish, allSelectedList);
+            List<Ingredient> allSelectedIngsList = getAllSelectedIngsList(allSelectedIngredients);
+            model.addAttribute("storedIngredients", getListOfAvailableIngsForDish(dish, allSelectedIngsList));
+            Collection<Ingredient> missing = getListOfMissingIngsForDish(dish, allSelectedIngsList);
             model.addAttribute("missing", missing);
         }
         return "dish";
@@ -56,7 +55,7 @@ public class DishController {
      * @param allSelectedIngredients collection of Ingredients to be collected.
      * @return sorted list of ingredients.
      */
-    private List<Ingredient> getAllSelectedList(Collection<Ingredient> allSelectedIngredients) {
+    private List<Ingredient> getAllSelectedIngsList(Collection<Ingredient> allSelectedIngredients) {
         List<Ingredient> allSelectedList = new ArrayList<>();
         for (Ingredient i : allSelectedIngredients) {
             allSelectedList.add(ingredientService.getIngredientByName(i.getName()));
@@ -70,8 +69,7 @@ public class DishController {
         return storedIngredients;
     }
 
-    Collection<Ingredient> getListOfMissingIngsForDish(Dish dish,
-                                                 Collection<Ingredient> storedIngs) {
+    Collection<Ingredient> getListOfMissingIngsForDish(Dish dish, Collection<Ingredient> storedIngs) {
         Collection<Ingredient> missingIngredients = new TreeSet<>(dish.getIngredients());
         missingIngredients.removeAll(storedIngs);
         return missingIngredients;
@@ -80,8 +78,7 @@ public class DishController {
 
     @PostMapping("dish/save/")
     public String saveDish( @ModelAttribute("Dish") Dish dish,
-                            @RequestParam(value="ings", required = false) int[] ings,
-                            BindingResult bindingResult) {
+                            @RequestParam(value="ings", required = false) int[] ings) {
 
         if (ings != null) {
             Ingredient ingredient = null;
@@ -123,35 +120,42 @@ public class DishController {
 
     void storeIngredientsInSession(HttpServletRequest request, Model model) {
         HttpSession session = request.getSession();
-        Set<Ingredient> selectedIngredients = Arrays.stream(request.getParameterValues("ingredient"))
-                .map((s -> ingredientService.getIngredientByName(s))).collect(Collectors.toSet());
-        session.setAttribute("set", selectedIngredients);
-        model.addAttribute("set", selectedIngredients);
+        List<Ingredient> selectedIngredients = Arrays.stream(request.getParameterValues("ingredient"))
+                .map((s -> ingredientService.getIngredientByName(s))).collect(Collectors.toList());
+        session.setAttribute("chosenIngredients", selectedIngredients);
+        model.addAttribute("chosenIngredients", selectedIngredients);
     }
 
     @GetMapping(value = "/dishes")
     String getDishesOfType(@RequestParam MultiValueMap<String, String> parameterMap,
                            @RequestParam(required = false) Optional<String> dishType,
                            Model model, HttpServletRequest request) {
-        Set<String> ingredientsSet = new TreeSet<>();
-        Set<Ingredient> selectedIngredients = new TreeSet<>();
+        Set<String> ingredientNamesSet = new TreeSet<>();
 
         if (request.getParameterValues("ingredient") != null &&
                 request.getParameterValues("ingredient").length > 0) {
             storeIngredientsInSession(request, model);
         }
 
+        Set<Ingredient> setOfIngredients = new HashSet<>();
+        for (String s: ingredientNamesSet) {
+            setOfIngredients.add(ingredientService.getIngredientByName(s));
+        }
+
         if (dishType.isEmpty() || dishType.get().equals("both")) {
-            for (String key : parameterMap.keySet()) ingredientsSet.addAll(parameterMap.get(key));
-            model.addAttribute("dishes", dishService.findByIngredientNamesIn(ingredientsSet));
+            for (String key : parameterMap.keySet()) ingredientNamesSet.addAll(parameterMap.get(key));
+            model.addAttribute("dishes",
+                    sortDishesByNOIngsMS(dishService.findByIngredientNamesIn(ingredientNamesSet), request, model));
         }
         if (dishType.isPresent() && dishType.get().equals("savory")) {
-            for (String key : parameterMap.keySet()) ingredientsSet.addAll(parameterMap.get(key));
-            model.addAttribute("dishes", dishService.findSavoryByIngredientNamesIn(ingredientsSet));
+            for (String key : parameterMap.keySet()) ingredientNamesSet.addAll(parameterMap.get(key));
+            model.addAttribute("dishes",
+                    sortDishesByNOIngsMS(dishService.findSavoryByIngredientNamesIn(ingredientNamesSet), request, model));
         }
         if (dishType.isPresent() && dishType.get().equals("sweet")) {
-            for (String key : parameterMap.keySet()) ingredientsSet.addAll(parameterMap.get(key));
-            model.addAttribute("dishes", dishService.findSweetByIngredientNamesIn(ingredientsSet));
+            for (String key : parameterMap.keySet()) ingredientNamesSet.addAll(parameterMap.get(key));
+            model.addAttribute("dishes",
+                    sortDishesByNOIngsMS(dishService.findSweetByIngredientNamesIn(ingredientNamesSet), request, model));
         }
 
         return "dishes";
@@ -191,4 +195,38 @@ public class DishController {
                 .map(Map.Entry::getKey).collect(Collectors.toSet());
     }
 
+    /**
+     * Sorts list of Dishes by a number of Ingredients Missing.
+     * @param dishes collection of Dishes retrieved from DishService.
+     * @param request HTTPServletRequest containing Set of Ingredients selected.
+     * @param model current model layer
+     * @return list of dishes sorted by Ingredients Missing ascending.
+     */
+    List<Dish> sortDishesByNOIngsMS(Collection<Dish> dishes, HttpServletRequest request, Model model) {
+        List<Dish> dishesSortedByNoIngsMS = new ArrayList<>();
+        List<Integer> NOMSIngs = new ArrayList<>();
+        Map<Dish, Integer> NOMSMap = createMapOfOccurrencesOfMSIngs(dishes, request);
+        List<Map.Entry<Dish, Integer>> entryList = new ArrayList<>(NOMSMap.entrySet());
+
+        entryList.sort(Map.Entry.comparingByValue());
+        entryList.forEach(entry -> dishesSortedByNoIngsMS.add(entry.getKey()));
+        entryList.forEach(entry -> NOMSIngs.add(entry.getValue()));
+        model.addAttribute("needs", NOMSIngs);
+        return dishesSortedByNoIngsMS;
+    }
+
+    Map<Dish, Integer> createMapOfOccurrencesOfMSIngs(Collection<Dish> dishes, HttpServletRequest request) {
+        Map<Dish, Integer> NOMSMap = new HashMap<>();
+        if (request.getSession().getAttribute("chosenIngredients") != null) {
+            List<Ingredient> allSelectedIngredients = (List<Ingredient>) request.getSession()
+                    .getAttribute("chosenIngredients");
+
+            for (Dish d : dishes) {
+                Set<Ingredient> needed = d.getIngredients();
+                needed.removeAll(allSelectedIngredients);
+                NOMSMap.put(d, needed.size());
+            }
+        }
+        return NOMSMap;
+    }
 }
