@@ -8,20 +8,36 @@
 </head>
 <body>
 <form action="/dishes">
-    <input type="checkbox" th:each="ingredient: ${ingredients}"
-           th:value="${ingredient.name}" name="ingredient" th:text="${ingredient.name}">
-    <br>
-    <br>
+<tr>
+    <td>Ingredients</td>
+    <td>
+    <th:block th:each="ingredient: ${ingredients}">
+    <input type="checkbox" class="btn-check" th:id="${ingredient.name}" name="ingredient" th:value="${ingredient.name}" autocomplete="off"/>
+        <label class="btn btn-outline-success" th:for="${ingredient.name}" th:text="${ingredient.name}"></label>
+    </th:block>
+    </td>
+</tr>
+    <br><br>
+    <input type="radio" class="btn-check" name="dishType" id="savory" value="savory">
+    <label class="btn btn-secondary" for="savory">savory</label>
 
-    <input type="radio" name="dishType" id="BOTH" value="both"><label for="BOTH">SWEET AND SAVORY</label>
-    <br>
-    <input type="radio" name="dishType" id="SAVORY" value="savory"><label for="SAVORY">SAVORY</label>
-    <br>
-    <input type="radio" name="dishType" id="SWEET" value="sweet"><label for="SWEET">SWEET</label>
+    <input type="radio" class="btn-check" name="dishType" id="sweet" value="sweet">
+    <label class="btn btn-secondary" for="sweet">sweet</label>
+
+    <input type="radio" class="btn-check" name="dishType" id="both" value="both">
+    <label class="btn btn-secondary" for="both">I don't mind</label>
 
     <br>
-
-    <input type="submit" value="WHAT THE FRIDGE?!">
+    <br>
+    <br><br>
+    <button class="btn btn-success rounded" type="submit">WHAT THE FRIDGE?!</button>
 </form>
+<br>
+<button class="btn-success" onclick="clearSelection()">Clear selection</button>
+<script>function clearSelection() {
+    var boxes = document.getElementsByClassName("btn-check")
+    for(let i = 0; i < boxes.length; i++) {
+        boxes[i].checked = false;}
+    }</script>
 </body>
 </html>

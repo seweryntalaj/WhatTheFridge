@@ -17,7 +17,7 @@
       </div>
     </div>
     <div th:if="${dish.pictureLink} != null">
-      <img th:src="${dish.pictureLink}">
+      <img th:src="${dish.pictureLink}" alt="Dish picture">
     </div>
   </div>
   <table name="dishInfo">
@@ -58,5 +58,6 @@
 </div>
 <input onclick='javascript:window.history.back()' value='Back to recipe list' type='button' />
 <a th:href="@{/}">New search</a>
+<div th:insert="fragments/footer :: footer"></div>
 </body>
 </html>
