@@ -137,10 +137,6 @@ public class DishController {
             storeIngredientsInSession(request, model);
         }
 
-        Set<Ingredient> setOfIngredients = new HashSet<>();
-        for (String s: ingredientNamesSet) {
-            setOfIngredients.add(ingredientService.getIngredientByName(s));
-        }
 
         if (dishType.isEmpty() || dishType.get().equals("both")) {
             for (String key : parameterMap.keySet()) ingredientNamesSet.addAll(parameterMap.get(key));
@@ -215,6 +211,7 @@ public class DishController {
         return dishesSortedByNoIngsMS;
     }
 
+    @SuppressWarnings("unchecked")
     Map<Dish, Integer> createMapOfOccurrencesOfMSIngs(Collection<Dish> dishes, HttpServletRequest request) {
         Map<Dish, Integer> NOMSMap = new HashMap<>();
         if (request.getSession().getAttribute("chosenIngredients") != null) {
@@ -223,7 +220,7 @@ public class DishController {
 
             for (Dish d : dishes) {
                 Set<Ingredient> needed = d.getIngredients();
-                needed.removeAll(allSelectedIngredients);
+                allSelectedIngredients.forEach(needed::remove);
                 NOMSMap.put(d, needed.size());
             }
         }
