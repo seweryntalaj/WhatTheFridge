@@ -69,8 +69,8 @@ INSERT INTO ingredient (name) VALUES
     ('Wine'),
     ('Zucchini');
 
-INSERT INTO dish (name, sweetdish, picturelink, recipelink) VALUES ('Scrambled eggs with bacon', false, 'https://brooklynfarmgirl.com/wp-content/uploads/2014/09/Scrambled-Eggs-With-Bacon-Featured-Image.jpg', null);
-INSERT INTO dish_ingredient (fk_dish_id, fk_ingredient_id) VALUES (1, 2), (1, 19);
+INSERT INTO dish (name, sweetdish, picturelink, recipelink) VALUES ('Scrambled eggs with bacon', false, 'https://brooklynfarmgirl.com/wp-content/uploads/2014/09/Scrambled-Eggs-With-Bacon-Featured-Image.jpg', 'https://brooklynfarmgirl.com/scrambled-eggs-with-bacon/');
+INSERT INTO dish_ingredient (fk_dish_id, fk_ingredient_id) VALUES (1, 2), (1, 19), (1, 6), (1, 26);
 
 INSERT INTO dish (name, sweetdish, picturelink, recipelink) VALUES ('Pancakes', false, null, null);
 INSERT INTO dish_ingredient (fk_dish_id, fk_ingredient_id) VALUES (2, 19), (2, 21), (2, 26);
@@ -81,6 +81,6 @@ INSERT INTO dish_ingredient (fk_dish_id, fk_ingredient_id) VALUES (3, 22), (3, 2
 INSERT INTO dish (name, sweetdish, picturelink, recipelink) VALUES ('Apple', true, null, null);
 INSERT INTO dish_ingredient (fk_dish_id, fk_ingredient_id) VALUES (4, 1);
 
-INSERT INTO dish (name, sweetdish, picturelink, recipelink) VALUES ('Pasta ragu', false, null, null);
-INSERT INTO dish_ingredient (fk_dish_id, fk_ingredient_id) VALUES (5, 2), (5, 3), (5, 8), (5, 9), (5, 22), (5, 28),
+INSERT INTO dish (name, sweetdish, picturelink, recipelink) VALUES ('Pasta ragu', false, 'https://www.recipetineats.com/wp-content/uploads/2017/07/Beef-Ragu-11a.jpg', 'https://www.recipetineats.com/slow-cooked-shredded-beef-ragu-pasta/');
+INSERT INTO dish_ingredient (fk_dish_id, fk_ingredient_id) VALUES (5, 3), (5, 8), (5, 9), (5, 22), (5, 28),
 (5, 30), (5, 40), (5, 42);
