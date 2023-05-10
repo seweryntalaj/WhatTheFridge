@@ -104,7 +104,7 @@ public class DishController {
     @GetMapping("/dishes/all")
     public String showAllDishes(Model model) {
         model.addAttribute("alldishes", dishService.getDishList());
-        return "all";
+        return "alldishes";
     }
 
     @GetMapping("/dish/update/{id}")

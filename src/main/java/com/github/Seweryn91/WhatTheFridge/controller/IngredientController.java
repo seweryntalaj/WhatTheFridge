@@ -41,4 +41,10 @@ public class IngredientController {
         ingredientService.deleteIngredient(ingredientService.getIngredientById(id));
         return "redirect:/";
     }
+
+    @GetMapping("ingredients/all")
+    public String showAllIngredients(Model model){
+        model.addAttribute("allingredients", ingredientService.getAllIngredients());
+        return "manageingredients";
+    }
 }

@@ -23,6 +23,6 @@ public class IndexController {
     @GetMapping
     String getIngredients(Model model) {
         model.addAttribute("ingredients", ingredientService.getAllIngredients());
-        return "ingredients";
+        return "allingredients";
     }
 }
