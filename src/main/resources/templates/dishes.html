@@ -32,10 +32,15 @@
                             </a>
                             <div class="card-body">
                                 <p class="card-text">
-                                <h3><a class="link-dark" th:href="@{'/dish/get/' + ${dish.id}}" th:text="${dish.name}"></a>
+                                <h3>
+                                <a class="link-dark" th:href="@{'/dish/get/' + ${dish.id}}" th:text="${dish.name}"></a>
                                 </h3>
-                                <div th:if="${dish.sweetDish}" class="sweetType">🧁 sweet 🍦</div>
-                                <div th:unless="${dish.sweetDish}" class="savoryType">🫒 savory  🧄</div>
+                                <small>
+                                <div th:if="${dish.sweetDish}" style="background-color: #ffc2d1; border: 1px;
+                                    border-radius: 4px;" class="sweetType text-white text-center">🧁 SWEET 🍦</div>
+                                <div th:unless="${dish.sweetDish}" style="background-color: #dba773; border: 1px;
+                                    border-radius: 4px;" class="savoryType text-white text-center">🫒 SAVORY 🧄</div>
+                                </small>
                                 <br>
                                 <p>Ingredients needed:
                                     <button class="btn btn-rounded" data-bs-toggle="tooltip"
