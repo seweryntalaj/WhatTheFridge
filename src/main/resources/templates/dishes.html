@@ -1,78 +1,119 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org" lang="en">
+<html xmlns:th="https://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html" lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Dishes found</title>
-  <link th:href="@{/../bootstrap-5.0.2-dist/css/bootstrap.min.css}" rel="stylesheet" />
-  <link href="/../bootstrap-5.0.2-dist/css/custom.css" rel="stylesheet"/>
-  <script src="/../bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js"></script>
-  <script>
-  function colorAdjust() {
-    let indicator = document.getElementsByClassName("btn btn-rounded border-1 border-secondary");
-    for (let i = 0; i < indicator.length; i++) {
-      let number = indicator[i].innerHTML;
-      if (number == 0) {
-        indicator[i].style.backgroundColor = "#98D8AA";
-      } else if (number == 1) { indicator[i].style.backgroundColor = "#F3E99F"; }
-      else if (number == 2) { indicator[i].style.backgroundColor = "#F7D060"; }
-      else {
-        indicator[i].style.backgroundColor = "#FF6D60";
-      }
-    }
-  }
-  </script>
+    <meta charset="UTF-8">
+    <title>Dishes found</title>
+    <link th:href="@{/../bootstrap-5.0.2-dist/css/bootstrap.min.css}" rel="stylesheet"/>
+    <link href="/../bootstrap-5.0.2-dist/css/custom.css" rel="stylesheet"/>
+    <script src="/../bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js"></script>
 </head>
-<body onload="colorAdjust()">
-
-<tr>
-  <td>Selected ingredients:</td>
-  <td>
-    <th:block th:each="entry: ${chosenIngredients}">
-      <input type="checkbox" class="btn-check" th:id="${entry.name}" name="ingredient" th:value="${entry.name}" checked autocomplete="off" disabled/>
-      <label class="btn btn-outline-success" th:for="${entry.name}" th:text="${entry.name}"></label>
-    </th:block>
-  </td>
-</tr>
-
-</div>
-    <div class="album py-5 bg-light">
-      <div class="container">
-
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-          <div class="col" th:each="dish,need : ${dishes}">
-            <div class="card shadow-sm">
-              <div class="card-top">
-                <a th:href="@{'/dish/get/' + ${dish.id}}">
-                  <img th:src="${dish.pictureLink}" alt="🍽" class="card-img-top img-responsive" height="420px" focusble="false">
-                </a>
-              <div class="card-body">
-                <p class="card-text">
-                  <h3><a class="link-dark" th:href="@{'/dish/get/' + ${dish.id}}" th:text="${dish.name}"></a></h3>
-                  <br>
-                  <p>Ingredients needed:
-                <button class="btn btn-rounded border-1 border-secondary" id="needed-ings" th:text="${needs[need.index]}"></button>
-              </p>
-                </p>
-                <div class="d-flex justify-content-between align-items-center">
-                  <div class="btn-group">
-                    <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                    <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                  </div>
-                  <small class="text-muted">9 mins</small>
-                </div>
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
+<body onload="set()">
+    <tr>
+        <td>Selected ingredients:</td>
+        <td>
+            <th:block th:each="entry: ${chosenIngredients}">
+                <input type="checkbox" class="btn-check" th:id="${entry.name}" name="ingredient" th:value="${entry.name}"
+                       checked autocomplete="off" disabled/>
+                <label class="btn btn-outline-success" th:for="${entry.name}" th:text="${entry.name}"></label>
+            </th:block>
+        </td>
+    </tr>
     </div>
 
-</div>
-<div th:if="${dishes.empty}">No dishes found for selected ingredients :(</div>
-<br>
-<form>
-  <input type="button" value="Go back!" onclick="history.back()">
-</form>
-<div th:insert="fragments/footer :: footer"></div>
+    <div class="album py-5 bg-light">
+        <div class="container">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+                <div class="col" th:each="dish,need : ${dishes}">
+                    <div class="card shadow-lg rounded-5">
+                        <div class="card-top">
+                            <a th:href="@{'/dish/get/' + ${dish.id}}">
+                                <img th:src="${dish.pictureLink}" alt="🍽" class="card-img-top img-responsive"
+                                     height="420px" focusble="false">
+                            </a>
+                            <div class="card-body">
+                                <p class="card-text">
+                                <h3><a class="link-dark" th:href="@{'/dish/get/' + ${dish.id}}" th:text="${dish.name}"></a>
+                                </h3>
+                                <div th:if="${dish.sweetDish}" class="sweetType">🧁 sweet 🍦</div>
+                                <div th:unless="${dish.sweetDish}" class="savoryType">🫒 savory  🧄</div>
+                                <br>
+                                <p>Ingredients needed:
+                                    <button class="btn btn-rounded" data-bs-toggle="tooltip"
+                                            data-bs-title="You need this many ingredients" id="needed-ings"
+                                         th:text="${needs[need.index]}"></button>
+                                </p>
+                                </p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                                        <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                                </div>
+                                <small class="text-muted">9 mins</small>
+                            </div>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div th:if="${dishes.empty}">No dishes found for selected ingredients :(</div>
+    </div>
+    <br>
+    <form>
+        <input type="button" value="Go back!" onclick="history.back()">
+    </form>
+    <div th:insert="fragments/footer :: footer"></div>
+    <script src="/../bootstrap-5.0.2-dist/js/popper.min.js"></script>
+    <script>
+        const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+        const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    </script>
+    <script>
+        function set() {
+            colorAdjust();
+            adjustTooltip();
+        }
+
+        function colorAdjust() {
+            let indicators = document.getElementsByClassName("btn btn-rounded");
+            for (let i = 0; i < indicators.length; i++) {
+                let number = indicators[i].innerHTML;
+                if (number == 0) {
+                    indicators[i].style.backgroundColor = "#98D8AA";
+                    indicators[i].style.borderColor = "#98D8AA";
+                } else if (number == 1 || number == 2) {
+                    indicators[i].style.backgroundColor = "#F3E99F";
+                    indicators[i].style.borderColor = "#F3E99F"
+                } else if (number == 3) {
+                    indicators[i].style.backgroundColor = "#F7D060";
+                    indicators[i].style.borderColor = "#F7D060"
+                } else {
+                indicators[i].style.backgroundColor = "#FF6D60";
+                indicators[i].style.borderColor = "#FF6D60"
+                }
+            }
+        }
+
+        function adjustTooltip() {
+            let tips = document.getElementsByClassName("btn btn-rounded");
+            for (let i = 0; i < tips.length; i++) {
+                let value = tips[i].innerHTML;
+                if (value == 0) {
+                    tips[i].setAttribute("data-bs-original-title", "You have all the ingredients! 🥳");
+                }
+                if (value == 1 || value == 2) {
+                    tips[i].setAttribute("data-bs-original-title", "You are missing just a few ingredients! 🙂");
+                }
+                if (value == 3) {
+                    tips[i].setAttribute("data-bs-original-title", "Close, but you need to get some more! 😐");
+                }
+                if (value > 3) {
+                    tips[i].setAttribute("data-bs-original-title", "Looks like you need to go shopping 😞");
+                }
+            }
+        }
+    </script>
 </body>
 </html>
