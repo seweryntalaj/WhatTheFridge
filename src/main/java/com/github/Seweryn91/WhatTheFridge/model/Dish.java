@@ -1,6 +1,6 @@
 package com.github.Seweryn91.WhatTheFridge.model;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;

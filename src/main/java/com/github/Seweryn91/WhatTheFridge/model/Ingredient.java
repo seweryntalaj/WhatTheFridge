@@ -1,8 +1,8 @@
 package com.github.Seweryn91.WhatTheFridge.model;
 
-import com.sun.istack.NotNull;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Set;
 

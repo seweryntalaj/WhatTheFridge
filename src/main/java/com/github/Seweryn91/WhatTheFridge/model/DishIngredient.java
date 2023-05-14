@@ -1,6 +1,6 @@
 package com.github.Seweryn91.WhatTheFridge.model;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "dish_ingredient")
