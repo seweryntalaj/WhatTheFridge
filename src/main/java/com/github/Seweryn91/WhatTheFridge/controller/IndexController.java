@@ -20,7 +20,7 @@ public class IndexController {
     @Autowired
     DishRepository dishRepository;
 
-    @GetMapping
+    @GetMapping("/allingredients")
     String getIngredients(Model model) {
         model.addAttribute("ingredients", ingredientService.getAllIngredients());
         return "allingredients";
