@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Dishes found</title>
-    <link th:href="@{/../bootstrap-5.0.2-dist/css/bootstrap.min.css}" rel="stylesheet"/>
-    <link href="/../bootstrap-5.0.2-dist/css/custom.css" rel="stylesheet"/>
-    <script src="/../bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js"></script>
+    <link href="/../bootstrap/bootstrap-5.3.0-alpha3-dist/css/bootstrap.min.css" type="text/css" rel="stylesheet"/>
+    <link href="/../bootstrap/bootstrap-5.3.0-alpha3-dist/css/custom.css" type="text/css" rel="stylesheet"/>
+
+    <script src="/../bootstrap/bootstrap-5.3.0-alpha3-dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body onload="set()">
     <tr>
@@ -44,7 +45,7 @@
                                 <br>
                                 <p>Ingredients needed:
                                     <button class="btn btn-rounded" data-bs-toggle="tooltip"
-                                            data-bs-title="You need this many ingredients" id="needed-ings"
+                                            title="You need this many ingredients" id="needed-ings"
                                          th:text="${needs[need.index]}"></button>
                                 </p>
                                 </p>
@@ -70,11 +71,12 @@
         <input type="button" value="Go back!" onclick="history.back()">
     </form>
     <div th:insert="fragments/footer :: footer"></div>
-    <script src="/../bootstrap-5.0.2-dist/js/popper.min.js"></script>
+
     <script>
         const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
         const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
     </script>
+    <script src="/../bootstrap/bootstrap-5.3.0-alpha3-dist/js/popper.min.js"></script>
     <script>
         function set() {
             colorAdjust();
@@ -102,11 +104,15 @@
         }
 
         function adjustTooltip() {
+        console.log("dupa");
             let tips = document.getElementsByClassName("btn btn-rounded");
             for (let i = 0; i < tips.length; i++) {
+                console.log("dupa w toolu");
                 let value = tips[i].innerHTML;
                 if (value == 0) {
                     tips[i].setAttribute("data-bs-original-title", "You have all the ingredients! 🥳");
+                    console.log("changeTitle");
+                    console.log("zero");
                 }
                 if (value == 1 || value == 2) {
                     tips[i].setAttribute("data-bs-original-title", "You are missing just a few ingredients! 🙂");
