@@ -44,8 +44,7 @@ public class SecurityConfiguration {
                         .defaultSuccessUrl("/", true)
                         .permitAll())
                 .logout(logout -> logout
-                        //.logoutUrl("/logout")
-                        .logoutSuccessUrl("/login?logout")
+                        .logoutSuccessUrl("/")
                         .invalidateHttpSession(true)
                         .clearAuthentication(true)
                         .deleteCookies("JSESSIONID"))
