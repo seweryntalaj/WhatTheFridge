@@ -25,4 +25,16 @@ public class IndexController {
         model.addAttribute("ingredients", ingredientService.getAllIngredients());
         return "allingredients";
     }
+
+    @GetMapping("/login")
+    String login() {
+        return "login";
+    }
+
+    @GetMapping("/logout")
+    String logout() { return "logout"; }
+
+    @GetMapping("/")
+    String index() { return "index"; }
+
 }

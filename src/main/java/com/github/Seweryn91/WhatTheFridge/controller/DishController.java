@@ -5,6 +5,7 @@ import com.github.Seweryn91.WhatTheFridge.model.Ingredient;
 import com.github.Seweryn91.WhatTheFridge.service.DishService;
 import com.github.Seweryn91.WhatTheFridge.service.IngredientService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.MultiValueMap;
@@ -24,6 +25,7 @@ public class DishController {
     private IngredientService ingredientService;
 
     @GetMapping("/dish/new")
+    @PreAuthorize("hasRole('ADMIN')")
     public String addNewDish(Model model) {
         model.addAttribute("dish", new Dish());
         model.addAttribute("ingredients", ingredientService.getAllIngredients());
@@ -77,6 +79,7 @@ public class DishController {
 
 
     @PostMapping("dish/save/")
+    @PreAuthorize("hasRole('ADMIN')")
     public String saveDish( @ModelAttribute("Dish") Dish dish,
                             @RequestParam(value="ings", required = false) int[] ings) {
 
@@ -96,18 +99,21 @@ public class DishController {
 
 
     @GetMapping("/dish/delete/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public String deleteDish(@PathVariable("id") long id) {
         dishService.delete(dishService.findDishById(id));
         return "redirect:/";
     }
 
     @GetMapping("/dishes/all")
+    @PreAuthorize("hasRole('ADMIN')")
     public String showAllDishes(Model model) {
         model.addAttribute("alldishes", dishService.getDishList());
         return "alldishes";
     }
 
     @GetMapping("/dish/update/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public String updateDish(@PathVariable("id") long id, Model model) {
         Dish dish = dishService.findDishById(id);
         model.addAttribute("dish", dish);
