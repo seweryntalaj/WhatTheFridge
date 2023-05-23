@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html" lang="en">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      lang="en">
 <head>
   <meta charset="UTF-8">
   <title>What The Fridge? View dish</title>
@@ -7,6 +9,7 @@
   <script src="/../bootstrap/bootstrap-5.3.0-alpha3-dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
+<div sec:authorize="hasRole('ADMIN')"><div th:insert="fragments/admin-header :: admin-header"></div></div>
 <div th:if="${dish} != null">
   <div class="container">
     <h1 th:text="${dish.name}"></h1>

@@ -1,16 +1,19 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org" lang="en">
+<html xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      lang="en">
 <head>
     <meta charset="UTF-8">
     <title>What The Fridge?!</title>
     <link href="/../bootstrap/bootstrap-5.3.0-alpha3-dist/css/bootstrap.min.css" rel="stylesheet" />
     <script src="/../bootstrap/bootstrap-5.3.0-alpha3-dist/js/bootstrap.bundle.min.js"></script>
 </head>
-
 <body>
+<div sec:authorize="hasRole('ADMIN')"><div th:insert="fragments/admin-header :: admin-header"></div></div>
 <p>No idea about what to eat?</p>
 <p>Do you have salt, oil, water and other basic ingredients handy? If so, check your fridge and pantry,
 check our checklist and explore dishes you can make with these.</p>
 <a href="/allingredients">NEW SEARCH</a>
+<div th:insert="fragments/footer :: footer"></div>
 </body>
 </html>

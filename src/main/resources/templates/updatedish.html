@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Update Dish</title>
@@ -7,6 +9,7 @@
     <script src="/../bootstrap/bootstrap-5.3.0-alpha3-dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
+<div sec:authorize="hasRole('ADMIN')"><div th:insert="fragments/admin-header :: admin-header"></div></div>
 <div th:if="${dish} != null">
     <h1>Edit dish</h1>
     <hr>
@@ -47,5 +50,6 @@
 <div th:unless="${dish} != null">Dish not found!
 </div>
 <a th:href="@{/}"> Back to Ingredient List</a>
+<div th:insert="fragments/footer :: footer"></div>
 </body>
 </html>

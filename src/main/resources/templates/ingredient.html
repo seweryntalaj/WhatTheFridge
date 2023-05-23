@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<html xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      lang="en" >
 <head>
     <meta charset="UTF-8">
     <title>Edit ingredient</title>
@@ -7,6 +9,8 @@
     <script src="/../bootstrap/bootstrap-5.3.0-alpha3-dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
+<div sec:authorize="hasRole('ADMIN')"><div th:insert="fragments/admin-header :: admin-header"></div></div>
 CONTENT OF INGREDIENT PAGE
+<div th:insert="fragments/footer :: footer"></div>
 </body>
 </html>
