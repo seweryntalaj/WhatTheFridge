@@ -7,7 +7,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "Dish")
-public class Dish implements Serializable {
+public class Dish implements Serializable, Comparable<Dish> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -99,4 +99,8 @@ public class Dish implements Serializable {
     }
 
 
+    @Override
+    public int compareTo(Dish d) {
+        return this.getName().compareTo(d.getName());
+    }
 }
