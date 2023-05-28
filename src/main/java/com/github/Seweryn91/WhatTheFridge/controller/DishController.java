@@ -207,9 +207,8 @@ public class DishController {
     List<Dish> sortDishesByNOIngsMS(Collection<Dish> dishes, HttpServletRequest request, Model model) {
         List<Dish> dishesSortedByNoIngsMS = new ArrayList<>();
         List<Integer> NOMSIngs = new ArrayList<>();
-        Map<Dish, Integer> NOMSMap = createMapOfOccurrencesOfMSIngs(dishes, request);
+        TreeMap<Dish, Integer> NOMSMap = createMapOfOccurrencesOfMSIngs(dishes, request);
         List<Map.Entry<Dish, Integer>> entryList = new ArrayList<>(NOMSMap.entrySet());
-
         entryList.sort(Map.Entry.comparingByValue());
         entryList.forEach(entry -> dishesSortedByNoIngsMS.add(entry.getKey()));
         entryList.forEach(entry -> NOMSIngs.add(entry.getValue()));
@@ -218,8 +217,8 @@ public class DishController {
     }
 
     @SuppressWarnings("unchecked")
-    Map<Dish, Integer> createMapOfOccurrencesOfMSIngs(Collection<Dish> dishes, HttpServletRequest request) {
-        Map<Dish, Integer> NOMSMap = new HashMap<>();
+    TreeMap<Dish, Integer> createMapOfOccurrencesOfMSIngs(Collection<Dish> dishes, HttpServletRequest request) {
+        TreeMap<Dish, Integer> NOMSMap = new TreeMap<>();
         if (request.getSession().getAttribute("chosenIngredients") != null) {
             List<Ingredient> allSelectedIngredients = (List<Ingredient>) request.getSession()
                     .getAttribute("chosenIngredients");
