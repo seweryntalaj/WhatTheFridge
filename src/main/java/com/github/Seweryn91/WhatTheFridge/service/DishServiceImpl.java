@@ -79,18 +79,18 @@ public class DishServiceImpl implements DishService {
 
     @Override
     @Transactional
-    public Set<Dish> findSweetByIngredientNamesIn(Set<String> ingredientsNames) {
+    public List<Dish> findSweetByIngredientNamesIn(Set<String> ingredientsNames) {
         return dishRepository.findSweetByIngredientNamesIn(ingredientsNames);
     }
 
     @Override
     @Transactional
-    public Set<Dish> findSavoryByIngredientNamesIn(Set<String> ingredientNames) {
+    public List<Dish> findSavoryByIngredientNamesIn(Set<String> ingredientNames) {
         return dishRepository.findSavoryByIngredientNamesIn(ingredientNames);
     }
 
     @Override
-    public Set<Dish> findByIngredientNamesIn(Set<String> ingredientNames) {
+    public List<Dish> findByIngredientNamesIn(Set<String> ingredientNames) {
         return dishRepository.findByIngredientNamesIn(ingredientNames);
     }
 }

@@ -16,14 +16,14 @@ public interface DishService {
 
     void delete(Dish dish);
 
-    Set<Dish> findByIngredientNamesIn(Set<String> ingredientsNames);
+    List<Dish> findByIngredientNamesIn(Set<String> ingredientsNames);
 
     Dish saveOrUpdate(Dish dish);
 
     Dish findByName(String name);
 
-    Set<Dish> findSweetByIngredientNamesIn(Set<String> ingredientsNames);
+    List<Dish> findSweetByIngredientNamesIn(Set<String> ingredientsNames);
 
-    Set<Dish> findSavoryByIngredientNamesIn(Set<String> ingredientNames);
+    List<Dish> findSavoryByIngredientNamesIn(Set<String> ingredientNames);
 
 }
