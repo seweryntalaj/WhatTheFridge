@@ -107,15 +107,11 @@
         }
 
         function adjustTooltip() {
-        console.log("dupa");
             let tips = document.getElementsByClassName("btn btn-rounded");
             for (let i = 0; i < tips.length; i++) {
-                console.log("dupa w toolu");
                 let value = tips[i].innerHTML;
                 if (value == 0) {
                     tips[i].setAttribute("data-bs-original-title", "You have all the ingredients! 🥳");
-                    console.log("changeTitle");
-                    console.log("zero");
                 }
                 if (value == 1 || value == 2) {
                     tips[i].setAttribute("data-bs-original-title", "You are missing just a few ingredients! 🙂");
