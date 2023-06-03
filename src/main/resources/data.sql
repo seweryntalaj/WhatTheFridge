@@ -37,7 +37,7 @@ INSERT INTO ingredient (name) VALUES
 INSERT INTO dish (name, sweetdish, picturelink, recipelink) VALUES ('Scrambled eggs with bacon', false,
     'https://brooklynfarmgirl.com/wp-content/uploads/2014/09/Scrambled-Eggs-With-Bacon-Featured-Image.jpg',
     'https://brooklynfarmgirl.com/scrambled-eggs-with-bacon/');
-INSERT INTO dish_ingredient (fk_dish_id, fk_ingredient_id) VALUES (1, 3), (1, 12), (1, 26), (1, 36);
+INSERT INTO dish_ingredient (fk_dish_id, fk_ingredient_id) VALUES (1, 3), (1, 12), (1, 27), (1, 36);
 
 INSERT INTO dish (name, sweetdish, picturelink, recipelink) VALUES ('Pancakes', true,
     'https://www.allrecipes.com/thmb/tOfkDV1xc28JMmITPQlQwy3FNWs=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/21014-Good-old-Fashioned-Pancakes-mfs_001-1fa26bcdedc345f182537d95b6cf92d8.jpg',
@@ -209,10 +209,10 @@ INSERT INTO dish_ingredient (fk_dish_id, fk_ingredient_id) VALUES (32, 10), (32,
     (32, 48), (32, 50), (32, 58);
 
 INSERT INTO dish (name, sweetdish, picturelink, recipelink) VALUES ('Leftover turkey mashed potato pie', false,
-    'https://thetortillachannel.com/wp-content/uploads/2020/05/Breakfast-wrap-3.jpg',
-    'https://thetortillachannel.com/breakfast-wrap/');
-INSERT INTO dish_ingredient (fk_dish_id, fk_ingredient_id) VALUES (33, 2), (33, 3), (33, 27), (33, 37), (33, 47),
-    (33, 59);
+    'https://www.lifeasastrawberry.com/wp-content/uploads/2022/10/turkey-shepherds-pie.jpg',
+    'https://www.lifeasastrawberry.com/leftover-turkey-mashed-potato-pie/');
+INSERT INTO dish_ingredient (fk_dish_id, fk_ingredient_id) VALUES (33, 10), (33, 12), (33, 14), (33, 23), (33, 27),
+    (33, 29), (33, 30), (33, 39), (33, 47), (33, 52), (33, 61);
 
 INSERT INTO dish (name, sweetdish, picturelink, recipelink) VALUES ('Garlic pork chops in creamy mushroom sauce', false,
     'https://www.eatwell101.com/wp-content/uploads/2019/02/Mushroom-pork-chops-recipe.jpg',
@@ -245,7 +245,8 @@ INSERT INTO dish (name, sweetdish, picturelink, recipelink) VALUES ('Homemade fl
 INSERT INTO dish_ingredient (fk_dish_id, fk_ingredient_id) VALUES (38, 29);
 
 INSERT INTO dish (name, sweetdish, picturelink, recipelink) VALUES ('Breakfast wrap', false,
-    'https://thetortillachannel.com/wp-content/uploads/2020/05/Breakfast-wrap-3.jpg', 'https://thetortillachannel.com/breakfast-wrap/');
+    'https://thetortillachannel.com/wp-content/uploads/2020/05/Breakfast-wrap-3.jpg',
+    'https://thetortillachannel.com/breakfast-wrap/');
 INSERT INTO dish_ingredient (fk_dish_id, fk_ingredient_id) VALUES (39, 2), (39, 3), (39, 27), (39, 37), (39, 48),
     (39, 60);
 
