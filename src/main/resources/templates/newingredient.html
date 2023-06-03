@@ -1,15 +1,21 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      data-bs-theme="auto"
       lang="en">
 <head>
     <meta charset="UTF-8">
     <title>New Ingredient</title>
+    <script src="/../bootstrap/bootstrap-5.3.0-alpha3-dist/js/themeToggler.js"></script>
     <link href="/../bootstrap/bootstrap-5.3.0-alpha3-dist/css/bootstrap.min.css" rel="stylesheet" />
     <script src="/../bootstrap/bootstrap-5.3.0-alpha3-dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
-<div sec:authorize="hasRole('ADMIN')"><div th:insert="fragments/admin-header :: admin-header"></div></div>
+<div sec:authorize="!hasRole('ADMIN')">
+    <div th:insert="fragments/header :: header"></div></div>
+<div sec:authorize="hasRole('ADMIN')">
+    <div th:replace="fragments/header :: admin-header"></div></div>
+</div>
 <div class="container">
     <h1>New Ingredient</h1>
     <hr>
