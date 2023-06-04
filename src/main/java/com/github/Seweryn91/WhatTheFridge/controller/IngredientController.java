@@ -1,5 +1,6 @@
 package com.github.Seweryn91.WhatTheFridge.controller;
 
+import com.github.Seweryn91.WhatTheFridge.model.Dish;
 import com.github.Seweryn91.WhatTheFridge.model.Ingredient;
 import com.github.Seweryn91.WhatTheFridge.service.IngredientService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import java.util.Set;
 
 @Controller
 public class IngredientController {
@@ -46,5 +49,14 @@ public class IngredientController {
     public String showAllIngredients(Model model){
         model.addAttribute("allingredients", ingredientService.getAllIngredients());
         return "manageingredients";
+    }
+
+    @GetMapping("/ingredient/get/{id}")
+    public String showIngredient(@PathVariable("id") long id, Model model) {
+        Ingredient ingredient = ingredientService.getIngredientById(id);
+        Set<Dish> dishes = ingredient.getDishes();
+        model.addAttribute("ingredient", ingredient);
+        model.addAttribute("dishes", dishes);
+        return "ingredient";
     }
 }
