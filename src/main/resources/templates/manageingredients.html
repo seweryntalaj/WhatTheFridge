@@ -16,6 +16,7 @@
 <div sec:authorize="hasRole('ADMIN')">
   <div th:replace="fragments/header :: admin-header"></div></div>
 </div>
+<div class="col-md-8 offset-md-2">
 <div th:if="${!allingredients.empty}">
   <table>
     <tr>
@@ -42,7 +43,7 @@
   <input type="button" value="Go back!" onclick="history.back()">
 </form>
 
-
+</div>
 <div th:insert="fragments/footer :: footer"></div>
 </body>
 </html>

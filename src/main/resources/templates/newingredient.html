@@ -16,6 +16,7 @@
 <div sec:authorize="hasRole('ADMIN')">
     <div th:replace="fragments/header :: admin-header"></div></div>
 </div>
+<div class="col-md-8 offset-md-2">
 <div class="container">
     <h1>New Ingredient</h1>
     <hr>
@@ -28,7 +29,8 @@
 
     <hr>
 
-    <a th:href="@{/}"> Back to Ingredient List</a>
+    <a class="btn btn-secondary" th:href="@{/ingredients/all}" role="button">Back to ingredients list</a>
+</div>
 </div>
 <div th:insert="fragments/footer :: footer"></div>
 </body>

@@ -16,6 +16,7 @@
 <div sec:authorize="hasRole('ADMIN')">
     <div th:replace="fragments/header :: admin-header"></div></div>
 </div>
+<div class="col-md-8 offset-md-2">
 <div th:if="${dish} != null">
     <h1>Edit dish</h1>
     <hr>
@@ -27,7 +28,7 @@
         <br>
         <div name="ingredients">
             <tr>
-                <td>Ingredients</td>
+                <td>Ingredients:</td>
                 <td>
                     <th:block th:each="ingredientEntry : ${map}">
                         <input type="checkbox" class="ingredientsMap" name="ings"
@@ -41,21 +42,21 @@
         </div>
 
             <br>
-            Picture link: <input type="text" th:field="*{pictureLink}" th:value="*{pictureLink}"
-                                 placeholder="Picture link">
+            Picture link: <input type="text" th:field="*{pictureLink}" placeholder="Picture link"
+                                 th:value="*{pictureLink}" class="form-control mb-4 col-4">
             <br>
             Recipe link: <input type="text" th:field="*{recipeLink}" placeholder="Recipe link"
-                                class="form-control mb-4 col-4">
+                                th:value="*{recipeLink}" class="form-control mb-4 col-4">
             <br>
 
-            <button type="submit" class="btn btn-info col-2">Save Dish</button>
+            <button type="submit" class="btn btn-secondary col-2">Save Dish</button>
     </form>
 
-
+    </div>
+    <div th:unless="${dish} != null">Dish not found!</div>
+    <br>
+    <a class="btn btn-secondary" href="/ingredients/all" role="button">Back to dishes manager</a>
 </div>
-<div th:unless="${dish} != null">Dish not found!
-</div>
-<a th:href="@{/}"> Back to Ingredient List</a>
 <div th:insert="fragments/footer :: footer"></div>
 </body>
 </html>

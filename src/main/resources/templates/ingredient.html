@@ -16,7 +16,21 @@
 <div sec:authorize="hasRole('ADMIN')">
     <div th:replace="fragments/header :: admin-header"></div></div>
 </div>
-CONTENT OF INGREDIENT PAGE
+<div class="col-md-8 offset-md-2">
+    <div th:unless="${ingredient} != null">
+        Ingredient not found!
+    </div>
+    <h1 th:text="${ingredient.name}">name</h1>
+    <div th:if="${dishes != null OR !dishes.empty}">
+        This ingredient is present in:
+
+        <tr th:each="dish : ${dishes}">
+            <td>
+                <span th:text="${dish.id}"></span> <a th:href="@{'/dish/get/' + ${dish.id}}" th:text="${dish.name}"></a>
+            </td>
+        </tr>
+    </div>
+</div>
 <div th:insert="fragments/footer :: footer"></div>
 </body>
 </html>

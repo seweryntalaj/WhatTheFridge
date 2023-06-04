@@ -16,6 +16,7 @@
 <div sec:authorize="hasRole('ADMIN')">
   <div th:replace="fragments/header :: admin-header"></div></div>
 </div>
+<div class="col-md-8 offset-md-2">
 <div class="container">
   <h1>Ingredient</h1>
   <hr>
@@ -23,13 +24,15 @@
 
   <form action="#" th:action="@{/ingredient/save}" th:object="${ingredient}" method="POST">
     <input type="hidden" th:field="*{id}">
-    <input type="text" th:field="*{name}">
-    <button type="submit">Update Ingredient</button>
+    Name:
+    <input type="text" th:field="*{name}" th:value="*{name}">
+    <button class="btn btn-secondary" type="submit">Update Ingredient</button>
   </form>
 
   <hr>
 
-  <a th:href = "@{/}">Back to ingredients list</a>
+  <a class="btn btn-secondary" th:href="@{/allingredients}" role="button">New search</a>
+</div>
 </div>
 <div th:insert="fragments/footer :: footer"></div>
 </body>

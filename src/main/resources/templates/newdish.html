@@ -16,6 +16,8 @@
 <div sec:authorize="hasRole('ADMIN')">
     <div th:replace="fragments/header :: admin-header"></div></div>
 </div>
+
+<div class="col-md-8 offset-md-2">
 <div class="container">
     <h1>New Dish</h1>
     <hr>
@@ -42,8 +44,8 @@
     </form>
 
     <hr>
-
-    <a th:href="@{/dishes/all}">Back to dishes List</a>
+    <a class="btn btn-secondary" th:href="@{//dishes/all}" role="button">Back to dishes list</a>
+</div>
 </div>
 <div th:insert="fragments/footer :: footer"></div>
 </body>

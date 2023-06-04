@@ -16,6 +16,9 @@
 <div sec:authorize="hasRole('ADMIN')">
     <div th:replace="fragments/header :: admin-header"></div></div>
 </div>
+
+<div class="col-md-8 offset-md-2">
+
 <form action="/dishes">
 <tr>
     <td>What ingredients do you have?</td>
@@ -44,7 +47,8 @@
     <button class="btn btn-success rounded" type="submit">WHAT THE FRIDGE?!</button>
 </form>
 <br>
-<button class="btn-success" onclick="clearSelection()">Clear selection</button>
+<a class="btn btn-secondary" th:onclick="clearSelection()" role="button">Clear selection</a>
+</div>
 <script>function clearSelection() {
     var boxes = document.getElementsByClassName("btn-check")
     for(let i = 0; i < boxes.length; i++) {

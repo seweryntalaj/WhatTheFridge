@@ -18,6 +18,9 @@
 <div sec:authorize="hasRole('ADMIN')">
     <div th:replace="fragments/header :: admin-header"></div></div>
 </div>
+
+<div class="col-md-8 offset-md-2">
+    <div class="container">
     <tr>
         <td>Selected ingredients:</td>
         <td>
@@ -28,6 +31,7 @@
             </th:block>
         </td>
     </tr>
+
     </div>
 
     <div class="album py-5">
@@ -46,22 +50,26 @@
                                 <a class="link-secondary" th:href="@{'/dish/get/' + ${dish.id}}" th:text="${dish.name}"></a>
                                 </h3>
                                 <small>
-                                <div th:if="${dish.sweetDish}" style="background-color: #ffc2d1; border: 1px;
-                                    border-radius: 4px;" class="sweetType text-center">🧁 SWEET 🍦</div>
-                                <div th:unless="${dish.sweetDish}" style="background-color: #dba773; border: 1px;
-                                    border-radius: 4px;" class="savoryType text-center">🫒 SAVORY 🧄</div>
+                                <div th:if="${dish.sweetDish}" style="background-color: #C88EA7; border: 1px;
+                                    border-radius: 4px; color: #adb5bd;" class="sweetType text-center">🧁 SWEET 🍦</div>
+                                <div th:unless="${dish.sweetDish}" style="background-color: #884A39; border: 1px;
+                                    border-radius: 4px; color: #adb5bd;" class="savoryType text-center">🫒 SAVORY 🧄</div>
                                 </small>
                                 <br>
                                 <p>Ingredients needed:
-                                    <button class="btn btn-rounded" data-bs-toggle="tooltip"
+                                    <button class="btn btn-rounded" style="color: black" data-bs-toggle="tooltip"
                                             title="You need this many ingredients" id="needed-ings"
                                          th:text="${needs[need.index]}"></button>
                                 </p>
                                 </p>
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="btn-group">
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                                        <a th:href="@{'/dish/get/' + ${dish.id}}"
+                                           class="btn btn-sm btn-outline-secondary" type="button">View</a>
+                                        <p sec:authorize="hasRole('ADMIN')">
+                                            <a th:href="@{'/dish/update/' + ${dish.id}}"
+                                               class="btn btn-sm btn-outline-secondary" type="button">Edit</a>
+                                        </p>
                                 </div>
                                 <small class="text-muted">9 mins</small>
                             </div>
@@ -72,13 +80,14 @@
             </div>
         </div>
 
-    </div>
     <div th:if="${dishes.empty}">No dishes found for selected ingredients :(</div>
     </div>
     <br>
     <form>
-        <input type="button" value="Go back!" onclick="history.back()">
+        <a class="btn btn-secondary" href="/allingredients" role="button">New search</a>
     </form>
+</div>
+</div>
     <div th:insert="fragments/footer :: footer"></div>
 
     <script>
@@ -93,21 +102,30 @@
         }
 
         function colorAdjust() {
+        let theme = document.documentElement.getAttribute('data-bs-theme');
             let indicators = document.getElementsByClassName("btn btn-rounded");
             for (let i = 0; i < indicators.length; i++) {
                 let number = indicators[i].innerHTML;
                 if (number == 0) {
                     indicators[i].style.backgroundColor = "#98D8AA";
                     indicators[i].style.borderColor = "#98D8AA";
+                    if (theme == "dark") indicators[i].style.opacity = 0.7
+                    else indicators[i].style.opacity = 1;
                 } else if (number == 1 || number == 2) {
                     indicators[i].style.backgroundColor = "#F3E99F";
                     indicators[i].style.borderColor = "#F3E99F"
+                    if (theme == "dark") indicators[i].style.opacity = 0.7;
+                    else indicators[i].style.opacity = 1;
                 } else if (number == 3) {
                     indicators[i].style.backgroundColor = "#F7D060";
                     indicators[i].style.borderColor = "#F7D060"
+                    if (theme == "dark") indicators[i].style.opacity = 0.7;
+                    else indicators[i].style.opacity = 1;
                 } else {
                 indicators[i].style.backgroundColor = "#FF6D60";
                 indicators[i].style.borderColor = "#FF6D60"
+                if (theme == "dark") indicators[i].style.opacity = 0.7;
+                else indicators[i].style.opacity = 1;
                 }
             }
         }

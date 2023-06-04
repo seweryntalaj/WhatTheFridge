@@ -17,11 +17,12 @@
         <div th:replace="fragments/header :: admin-header"></div>
 </div>
 </div>
-
-<p>Do you have no idea what to cook?</p>
-<p>Ingredients I always have in my pantry: baking powder, oil, salt, herbs and spices, vinegar, soy sauce, dry yeast.</p>
-<p>Check what more you have and explore dishes you can make with these ingredients.</p>
-<a href="/allingredients">NEW SEARCH</a>
+<div class="col-md-8 offset-md-2">
+    <p>Do you have no idea what to cook?</p>
+    <p>Ingredients I always have in my pantry: baking powder, oil, salt, herbs and spices, vinegar, soy sauce, dry yeast.</p>
+    <p>Check what more you have and explore dishes you can make with these ingredients.</p>
+    <a class="btn btn-secondary" th:href="@{/allingredients}" role="button">New search</a>
+</div>
 <div th:insert="fragments/footer :: footer"></div>
 </body>
 </html>

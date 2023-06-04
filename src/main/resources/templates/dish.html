@@ -18,6 +18,7 @@
 <div sec:authorize="hasRole('ADMIN')">
   <div th:replace="fragments/header :: admin-header"></div></div>
 </div>
+<div class="col-md-8 offset-md-2">
 <div th:if="${dish} != null">
   <div class="container">
     <h1 th:text="${dish.name}"></h1>
@@ -27,46 +28,51 @@
       </div>
     </div>
     <div th:if="${dish.pictureLink} != null">
-      <img th:src="${dish.pictureLink}" style="object-fit: cover; width: 100%; height: 420px;" alt="Dish picture">
+      <img th:src="${dish.pictureLink}" style="object-fit: cover; width: 80%; height: 420px; display: block;
+      margin-left: auto; margin-right: auto;" class="rounded-5" alt="Dish picture">
     </div>
   </div>
   <table name="dishInfo">
     <br>
-    Is sweet: <input type="checkbox" th:name="*{dish.sweetDish}" label="is sweet?"
-                     th:checked="*{dish.sweetDish}" disabled="disabled">
+    Dish type:
+    <span th:if="*{dish.sweetDish}">SWEET</span>
+    <span th:if="*{!dish.sweetDish}">SAVORY</span>
     <br>
     <div name="ingredients">
       <div th:if="${storedIngredients} == null">
         Ingredients:
-        <input checked="true" type="checkbox" id="ingredients" name="ingredients" th:each="ingredient: ${ingredients}" ]
-               th:text="${ingredient.name}" th:value="${ingredient.name}" disabled="disabled"></td>
+        <a th:each="ingredient: ${ingredients}">
+          <input type="checkbox" class="btn-check" th:id="${ingredient.name}" name="ingredient" th:value="${ingredient.name}"
+                 checked autocomplete="off" disabled/>
+          <label class="btn btn-outline-succes" th:for="${ingredient.name}" th:text="${ingredient.name}"></label></a>
       </div>
       <div>
-
-        <a th:if="${storedIngredients} != null" >WHAT YOU HAVE:</a>
-        <a th:each="i: ${storedIngredients}">
-
-          <a th:text="${i.name}">ingredient</a></a>
-          <br>
+        <a th:if="${storedIngredients} != null">WHAT YOU HAVE:</a>
+        <a th:each="i : ${storedIngredients}">
+        <input type="checkbox" class="btn-check" th:id="${i.name}" name="ingredient" th:value="${i.name}"
+               checked autocomplete="off" disabled/>
+          <label class="btn btn-outline-succes" th:for="${i.name}" th:text="${i.name}"></label></a>
       </div>
-
       <div th:if="${missing != null AND !missing.empty}">WHAT YOU NEED:
         <a th:each="i: ${missing}">
-        <a th:text="${i.name}">ingredient</a></a>
+            <input type="checkbox" class="btn-check" th:id="${i.name}" name="ingredient" th:value="${i.name}"
+                   checked autocomplete="off" disabled/>
+            <label class="btn btn-outline-succes" th:for="${i.name}" th:text="${i.name}"></label></a>
       </div>
       <div th:unless="${missing == null OR !missing.empty}">You have all ingredients!</div>
     </div>
-      <br>
     <div th:unless="${dish.recipeLink == null OR dish.recipeLink == ''}">
-      <span id="recipeLink" th:if="${dish.recipeLink!=null}">Recipe link <a th:href="${dish.recipeLink}">HERE</a></span>
+      Recipe link
+      <a class="btn btn-secondary" th:href="${dish.recipeLink}" role="button">HERE</a>
     </div>
   </table>
 
 <div th:unless="${dish} != null">
   Dish not found!
 </div>
-<input onclick='javascript:window.history.back()' value='Back to recipe list' type='button' />
-<a th:href="@{/}">New search</a>
+  <a class="btn btn-secondary" th:onclick="javascript:window.history.back()" role="button">Go back</a>
+  <a class="btn btn-secondary" th:href="@{/allingredients}" role="button">New search</a>
+</div>
 <div th:insert="fragments/footer :: footer"></div>
 </body>
 </html>
