@@ -18,7 +18,6 @@
 <div sec:authorize="hasRole('ADMIN')">
     <div th:replace="fragments/header :: admin-header"></div></div>
 </div>
-
 <div class="col-md-8 offset-md-2">
     <div class="container">
     <tr>
@@ -46,15 +45,12 @@
                             </a>
                             <div class="card-body">
                                 <p class="card-text">
-                                <h3>
-                                <a class="link-secondary" th:href="@{'/dish/get/' + ${dish.id}}" th:text="${dish.name}"></a>
-                                </h3>
-                                <small>
+                                <a class="link-secondary h3" th:href="@{'/dish/get/' + ${dish.id}}" th:text="${dish.name}"></a>
+                                <br>
                                 <div th:if="${dish.sweetDish}" style="background-color: #C88EA7; border: 1px;
-                                    border-radius: 4px; color: #adb5bd;" class="sweetType text-center">🧁 SWEET 🍦</div>
+                                    border-radius: 4px; color: #D3D3D3" class="sweetType text-center small">🧁 SWEET 🍦</div>
                                 <div th:unless="${dish.sweetDish}" style="background-color: #884A39; border: 1px;
-                                    border-radius: 4px; color: #adb5bd;" class="savoryType text-center">🫒 SAVORY 🧄</div>
-                                </small>
+                                    border-radius: 4px; color: #D3D3D3;" class="savoryType text-center small">🫒 SAVORY 🧄</div>
                                 <br>
                                 <p>Ingredients needed:
                                     <button class="btn btn-rounded" style="color: black" data-bs-toggle="tooltip"
@@ -71,7 +67,6 @@
                                                class="btn btn-sm btn-outline-secondary" type="button">Edit</a>
                                         </p>
                                 </div>
-                                <small class="text-muted">9 mins</small>
                             </div>
                             </p>
                         </div>
