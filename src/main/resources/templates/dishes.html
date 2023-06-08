@@ -9,88 +9,101 @@
     <script src="/../bootstrap/bootstrap-5.3.0-alpha3-dist/js/themeToggler.js"></script>
     <link href="/../bootstrap/bootstrap-5.3.0-alpha3-dist/css/bootstrap.min.css" type="text/css" rel="stylesheet"/>
     <link href="/../bootstrap/bootstrap-5.3.0-alpha3-dist/css/custom.css" type="text/css" rel="stylesheet"/>
-
     <script src="/../bootstrap/bootstrap-5.3.0-alpha3-dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body onload="set()">
-<div sec:authorize="!hasRole('ADMIN')">
-    <div th:insert="fragments/header :: header"></div></div>
-<div sec:authorize="hasRole('ADMIN')">
-    <div th:replace="fragments/header :: admin-header"></div></div>
-</div>
-<div class="col-md-8 offset-md-2">
-    <div class="container">
-    <tr>
-        <td>Selected ingredients:</td>
-        <td>
-            <th:block th:each="entry: ${chosenIngredients}">
-                <input type="checkbox" class="btn-check" th:id="${entry.name}" name="ingredient" th:value="${entry.name}"
-                       checked autocomplete="off" disabled/>
-                <label class="btn btn-outline-success" th:for="${entry.name}" th:text="${entry.name}"></label>
-            </th:block>
-        </td>
-    </tr>
+<div id="page-container">
+    <div id="content-wrap">
+        <div sec:authorize="!hasRole('ADMIN')">
+            <div th:insert="fragments/header :: header"></div>
+        </div>
+        <div sec:authorize="hasRole('ADMIN')">
+            <div th:replace="fragments/header :: admin-header"></div>
+        </div>
+        <div class="col-md-8 offset-md-2">
+            <div class="container">
+                <tr>
+                    <td>Selected ingredients:</td>
+                    <td>
+                        <th:block th:each="entry: ${chosenIngredients}">
+                            <input type="checkbox" class="btn-check" th:id="${entry.name}" name="ingredient"
+                                   th:value="${entry.name}"
+                                   checked autocomplete="off" disabled/>
+                            <label class="btn btn-outline-success" th:for="${entry.name}"
+                                   th:text="${entry.name}"></label>
+                        </th:block>
+                    </td>
+                </tr>
 
-    </div>
+            </div>
 
-    <div class="album py-5">
-        <div class="container">
-            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-                <div class="col" th:each="dish, need : ${dishes}">
-                    <div class="card shadow-lg rounded-5 h-100">
-                        <div class="card-top">
-                            <a th:href="@{'/dish/get/' + ${dish.id}}">
-                                <img th:src="${dish.pictureLink}" alt="🍽" class="card-img-top rounded-top-5 img-responsive"
-                                     height="420px" focusble="false">
-                            </a>
-                            <div class="card-body">
-                                <p class="card-text">
-                                <a class="link-secondary h3" th:href="@{'/dish/get/' + ${dish.id}}" th:text="${dish.name}"></a>
-                                <br>
-                                <div th:if="${dish.sweetDish}" style="background-color: #C88EA7; border: 1px;
-                                    border-radius: 4px; color: #D3D3D3" class="sweetType text-center small">🧁 SWEET 🍦</div>
-                                <div th:unless="${dish.sweetDish}" style="background-color: #884A39; border: 1px;
-                                    border-radius: 4px; color: #D3D3D3;" class="savoryType text-center small">🫒 SAVORY 🧄</div>
-                                <br>
-                                <p>Ingredients needed:
-                                    <button class="btn btn-rounded" style="color: black" data-bs-toggle="tooltip"
-                                            title="You need this many ingredients" id="needed-ings"
-                                         th:text="${needs[need.index]}"></button>
-                                </p>
-                                </p>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div class="btn-group">
-                                        <a th:href="@{'/dish/get/' + ${dish.id}}"
-                                           class="btn btn-sm btn-outline-secondary" type="button">View</a>
-                                        <p sec:authorize="hasRole('ADMIN')">
-                                            <a th:href="@{'/dish/update/' + ${dish.id}}"
-                                               class="btn btn-sm btn-outline-secondary" type="button">Edit</a>
+            <div class="album py-5">
+                <div class="container">
+                    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+                        <div class="col" th:each="dish, need : ${dishes}">
+                            <div class="card shadow-lg rounded-5 h-100">
+                                <div class="card-top">
+                                    <a th:href="@{'/dish/get/' + ${dish.id}}">
+                                        <img th:src="${dish.pictureLink}" alt="🍽"
+                                             class="card-img-top rounded-top-5 img-responsive"
+                                             height="420px" focusble="false">
+                                    </a>
+                                    <div class="card-body">
+                                        <p class="card-text">
+                                            <a class="link-secondary h3" th:href="@{'/dish/get/' + ${dish.id}}"
+                                               th:text="${dish.name}"></a>
+                                            <br>
+                                        <div th:if="${dish.sweetDish}" style="background-color: #C88EA7; border: 1px;
+                                    border-radius: 4px; color: #D3D3D3" class="sweetType text-center small">🧁 SWEET 🍦
+                                        </div>
+                                        <div th:unless="${dish.sweetDish}" style="background-color: #884A39; border: 1px;
+                                    border-radius: 4px; color: #D3D3D3;" class="savoryType text-center small">🫒 SAVORY
+                                            🧄
+                                        </div>
+                                        <br>
+                                        <p>Ingredients needed:
+                                            <button class="btn btn-rounded" style="color: black"
+                                                    data-bs-toggle="tooltip"
+                                                    title="You need this many ingredients" id="needed-ings"
+                                                    th:text="${needs[need.index]}"></button>
                                         </p>
+                                        </p>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div class="btn-group">
+                                                <a th:href="@{'/dish/get/' + ${dish.id}}"
+                                                   class="btn btn-sm btn-outline-secondary" type="button">View</a>
+                                                <p sec:authorize="hasRole('ADMIN')">
+                                                    <a th:href="@{'/dish/update/' + ${dish.id}}"
+                                                       class="btn btn-sm btn-outline-secondary" type="button">Edit</a>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
-                            </p>
                         </div>
                     </div>
+
+                    <div th:if="${dishes.empty}">No dishes found for selected ingredients :(</div>
                 </div>
+                <br>
+                <form>
+                    <a class="btn btn-secondary" href="/allingredients" role="button">New search</a>
+                </form>
             </div>
         </div>
-
-    <div th:if="${dishes.empty}">No dishes found for selected ingredients :(</div>
     </div>
-    <br>
-    <form>
-        <a class="btn btn-secondary" href="/allingredients" role="button">New search</a>
-    </form>
-</div>
-</div>
     <div th:insert="fragments/footer :: footer"></div>
-
-    <script>
+</div>
+<script>
         const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
         const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
-    </script>
-    <script src="/../bootstrap/bootstrap-5.3.0-alpha3-dist/js/popper.min.js"></script>
-    <script>
+
+
+</script>
+<script src="/../bootstrap/bootstrap-5.3.0-alpha3-dist/js/popper.min.js"></script>
+<script>
         function set() {
             colorAdjust();
             adjustTooltip();
@@ -143,6 +156,8 @@
                 }
             }
         }
-    </script>
+
+
+</script>
 </body>
 </html>
