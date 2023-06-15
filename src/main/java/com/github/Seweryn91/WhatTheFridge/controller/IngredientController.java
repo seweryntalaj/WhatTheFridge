@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Set;
 
 @Controller
@@ -47,7 +49,9 @@ public class IngredientController {
 
     @GetMapping("ingredients/all")
     public String showAllIngredients(Model model){
-        model.addAttribute("allingredients", ingredientService.getAllIngredients());
+        List<Ingredient> allIngredients = ingredientService.getAllIngredients();
+        Collections.sort(allIngredients);
+        model.addAttribute("allingredients", allIngredients);
         return "manageingredients";
     }
 
