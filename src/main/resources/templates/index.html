@@ -10,6 +10,7 @@
     <link href="/../bootstrap/bootstrap-5.3.0-alpha3-dist/css/bootstrap.min.css" rel="stylesheet"/>
     <link href="/../bootstrap/bootstrap-5.3.0-alpha3-dist/css/custom.css" type="text/css" rel="stylesheet"/>
     <script src="/../bootstrap/bootstrap-5.3.0-alpha3-dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="icon" type="image/ico" th:href="@{/../favicon.ico}">
 </head>
 <body>
 <div id="page-container">
@@ -20,15 +21,29 @@
         <div sec:authorize="hasRole('ADMIN')">
             <div th:replace="fragments/header :: admin-header"></div>
         </div>
-        <div class="col-md-8 offset-md-2">
-            <p>Do you have no idea what to cook?</p>
-            <p>Ingredients I always have in my pantry: baking powder, oil, salt, herbs and spices, vinegar, soy sauce,
-                dry yeast.</p>
-            <p>Check what more you have and explore dishes you can make with these ingredients.</p>
-            <a class="btn btn-secondary" th:href="@{/allingredients}" role="button">New search</a>
+        <div class="container">
+            <div class="row align-items-center py-2">
+                <div class="col-md-6">
+                    <p class="h1 fw-bolder">No idea what to cook?</p>
+                    <p></p>
+                    <br>
+                    <p style="padding-right: 15%;">Discover the magic of cooking with what you have in your fridge! Unleash your culinary creativity
+                        with our interactive website. Simply choose your ingredients and let us inspire you with
+                        delicious recipes tailored just for you. Say goodbye to food waste and hello to exciting,
+                        impromptu meals! Join the culinary adventure today!</p>
+                    <p style="padding-right: 15%;">Ingredients I always have in my pantry: baking powder, oil, salt, herbs and spices, vinegar, soy
+                        sauce, dry yeast.</p>
+                    <br>
+                    <a class="btn btn-dark btn-lg col-md-6 rounded-0 fw-semibold" style="background-color: #000000;"
+                       th:href="@{/allingredients}" role="button">Check it out</a>
+                </div>
+                <div class="col-md-6 px-5 pt-5">
+                    <img th:src="@{/../images/wtf-click-illustration.svg}" style="max-width: 100%; height: auto;">
+                </div>
+            </div>
         </div>
-        <div th:insert="fragments/footer :: footer"></div>
     </div>
+    <div th:insert="fragments/footer :: footer"></div>
 </div>
 </body>
 </html>
