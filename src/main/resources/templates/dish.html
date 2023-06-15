@@ -22,7 +22,7 @@
             <div th:replace="fragments/header :: admin-header"></div>
         </div>
 
-        <div class="col-md-8 offset-md-2">
+        <div class="col-md-8 offset-md-2 p-3 border border-secondary-subtle rounded">
             <div th:if="${dish} != null">
                 <div class="container">
                     <h1 th:text="${dish.name}"></h1>
@@ -35,49 +35,56 @@
                     <img th:src="${dish.pictureLink}" style="object-fit: cover; width: 80%; height: 420px; display: block;
       margin-left: auto; margin-right: auto;" class="rounded-5" alt="Dish picture">
                 </div>
+                <div class="col py-5" name="dishInfo">
+                    <div colass="row py-3">Dish type:
+                        <span th:if="*{dish.sweetDish}">SWEET</span>
+                        <span th:if="*{!dish.sweetDish}">SAVORY</span>
+                    </div>
+                    <div class="row py-3" name="ingredients">
+                        <tr>
+                            <div th:if="${storedIngredients} == null">
+                                Ingredients:
+                                <a th:each="ingredient: ${ingredients}">
+                                    <input type="checkbox" class="btn-check" th:id="${ingredient.name}"
+                                           name="ingredient"
+                                           th:value="${ingredient.name}"
+                                           checked autocomplete="off" disabled/>
+                                    <label class="btn btn-outline-succes" th:for="${ingredient.name}"
+                                           th:text="${ingredient.name}"></label></a>
+                            </div>
+                            <div>
+                                <a th:if="${storedIngredients} != null">WHAT YOU HAVE:</a>
+                                <a th:each="i : ${storedIngredients}">
+                                    <input type="checkbox" class="btn-check" th:id="${i.name}" name="ingredient"
+                                           th:value="${i.name}"
+                                           checked autocomplete="off" disabled/>
+                                    <label class="btn btn-outline-succes" th:for="${i.name}"
+                                           th:text="${i.name}"></label></a>
+                            </div>
+                            <div th:if="${missing != null AND !missing.empty}">WHAT YOU NEED:
+                                <a th:each="i: ${missing}">
+                                    <input type="checkbox" class="btn-check" th:id="${i.name}" name="ingredient"
+                                           th:value="${i.name}"
+                                           checked autocomplete="off" disabled/>
+                                    <label class="btn btn-outline-succes" th:for="${i.name}"
+                                           th:text="${i.name}"></label></a>
+                            </div>
+                            <div th:unless="${missing == null OR !missing.empty}">You have all ingredients!</div>
+                        </tr>
+                    </div>
+                    <div th:unless="${dish.recipeLink == null OR dish.recipeLink == ''}">
+                        <div class="row px-3 pt-3">
+                            Recipe link
+                            <a class="btn btn-secondary" style="width: auto;" th:href="${dish.recipeLink}"
+                               role="button">HERE</a>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <table name="dishInfo">
-                <br>
-                Dish type:
-                <span th:if="*{dish.sweetDish}">SWEET</span>
-                <span th:if="*{!dish.sweetDish}">SAVORY</span>
-                <br>
-                <div name="ingredients">
-                    <div th:if="${storedIngredients} == null">
-                        Ingredients:
-                        <a th:each="ingredient: ${ingredients}">
-                            <input type="checkbox" class="btn-check" th:id="${ingredient.name}" name="ingredient"
-                                   th:value="${ingredient.name}"
-                                   checked autocomplete="off" disabled/>
-                            <label class="btn btn-outline-succes" th:for="${ingredient.name}"
-                                   th:text="${ingredient.name}"></label></a>
-                    </div>
-                    <div>
-                        <a th:if="${storedIngredients} != null">WHAT YOU HAVE:</a>
-                        <a th:each="i : ${storedIngredients}">
-                            <input type="checkbox" class="btn-check" th:id="${i.name}" name="ingredient"
-                                   th:value="${i.name}"
-                                   checked autocomplete="off" disabled/>
-                            <label class="btn btn-outline-succes" th:for="${i.name}" th:text="${i.name}"></label></a>
-                    </div>
-                    <div th:if="${missing != null AND !missing.empty}">WHAT YOU NEED:
-                        <a th:each="i: ${missing}">
-                            <input type="checkbox" class="btn-check" th:id="${i.name}" name="ingredient"
-                                   th:value="${i.name}"
-                                   checked autocomplete="off" disabled/>
-                            <label class="btn btn-outline-succes" th:for="${i.name}" th:text="${i.name}"></label></a>
-                    </div>
-                    <div th:unless="${missing == null OR !missing.empty}">You have all ingredients!</div>
-                </div>
-                <div th:unless="${dish.recipeLink == null OR dish.recipeLink == ''}">
-                    Recipe link
-                    <a class="btn btn-secondary" th:href="${dish.recipeLink}" role="button">HERE</a>
-                </div>
-            </table>
-
             <div th:unless="${dish} != null">
                 Dish not found!
             </div>
+            <hr class="hr"/>
             <a class="btn btn-secondary" th:onclick="javascript:window.history.back()" role="button">Go back</a>
             <a class="btn btn-secondary" th:href="@{/allingredients}" role="button">New search</a>
         </div>

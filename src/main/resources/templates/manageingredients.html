@@ -20,25 +20,32 @@
         <div sec:authorize="hasRole('ADMIN')">
             <div th:replace="fragments/header :: admin-header"></div>
         </div>
-        <div class="col-md-8 offset-md-2">
-            <div th:if="${!allingredients.empty}">
-                <table>
-                    <tr>
-                        <th>Manage ingredients</th>
-                    </tr>
-                    <tr th:each="ingredient: ${allingredients}">
-                        <td>
-                            <span th:text="${ingredient.id}"></span>
-                            <a th:href="@{'/ingredient/get/' + ${ingredient.id}}" th:text="${ingredient.name}"></a>
-                            <a class="btn btn-primary" th:href="@{'/ingredient/update/' + ${ingredient.id}}"
-                               role="button">UPDATE</a>
-                            <a role="button" class="btn btn-danger"
-                               th:href="@{'/ingredient/delete/' + ${ingredient.id}}"
-                               th:data-confirm-delete="|Do you want to delete this ingredient: ${ingredient.name}?|"
-                               onclick="if (!confirm(this.getAttribute('data-confirm-delete'))) return false">DELETE</a>
 
-                        </td>
+        <div class="col-md-8 offset-md-2 p-3 border border-secondary-subtle rounded">
+            <div th:if="${!allingredients.empty}">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">NAME</th>
+                        <th scope="col">ACTIONS</th>
                     </tr>
+                    </thead>
+                    <tbody>
+                    <th:block th:each="ingredient: ${allingredients}">
+                        <tr>
+                            <th scope="row" th:text="${ingredient.id}"></th>
+                            <td><a th:href="@{'/ingredient/get/' + ${ingredient.id}}" th:text="${ingredient.name}"></a>
+                            </td>
+                            <td><a class="btn btn-primary" th:href="@{'/ingredient/update/' + ${ingredient.id}}"
+                                    role="button">UPDATE</a>
+                                <a role="button" class="btn btn-danger"
+                                   th:href="@{'/ingredient/delete/' + ${ingredient.id}}"
+                                   th:data-confirm-delete="|Do you want to delete this ingredient: ${ingredient.name}?|"
+                                   onclick="if (!confirm(this.getAttribute('data-confirm-delete'))) return false">DELETE</a>
+                            </td>
+                        </tr>
+                    </th:block>
                 </table>
             </div>
 

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       xmlns:th="https://www.thymeleaf.org"
       data-bs-theme="auto"
       lang="en">
@@ -12,7 +13,13 @@
 <body>
 <div id="page-container">
     <div id="content-wrap">
-        <div class="container mb-3">
+        <div sec:authorize="!hasRole('ADMIN')">
+        <div th:insert="fragments/header :: header"></div>
+    </div>
+        <div sec:authorize="hasRole('ADMIN')">
+            <div th:replace="fragments/header :: admin-header"></div>
+        </div>
+        <div class="container mb-3 p-3 border border-secondary-subtle rounded">
             <div th:if="${param.error}">
                 Invalid username and password.
             </div>

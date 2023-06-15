@@ -20,24 +20,29 @@
         <div sec:authorize="hasRole('ADMIN')">
             <div th:replace="fragments/header :: admin-header"></div>
         </div>
-        <div class="col-md-8 offset-md-2">
+        <div class="col-md-8 offset-md-2 p-3 mb-3 border border-secondary-subtle rounded">
             <div class="container">
                 <tr>
                     <td>Selected ingredients:</td>
                     <td>
-                        <th:block th:each="entry: ${chosenIngredients}">
-                            <input type="checkbox" class="btn-check" th:id="${entry.name}" name="ingredient"
-                                   th:value="${entry.name}"
-                                   checked autocomplete="off" disabled/>
-                            <label class="btn btn-outline-success" th:for="${entry.name}"
-                                   th:text="${entry.name}"></label>
-                        </th:block>
+                        <p></p>
+                        <div id="chosen-ingredients"
+                             class="d-flex flex-wrap justify-content-center column-gap-2 row-gap-2">
+                            <th:block th:each="entry: ${chosenIngredients}">
+                                <input type="checkbox" class="btn-check" th:id="${entry.name}"
+                                       name="ingredient" style="margin-bottom: 2px; margin-top: 2px;"
+                                       th:value="${entry.name}" autocomplete="off" disabled/>
+                                <label class="btn btn-outline-success" th:for="${entry.name}"
+                                       th:text="${entry.name}"></label>
+                            </th:block>
+                        </div>
                     </td>
+                    <hr class="hr"/>
                 </tr>
 
             </div>
 
-            <div class="album py-5">
+            <div class="album p-2">
                 <div class="container">
                     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
                         <div class="col" th:each="dish, need : ${dishes}">
@@ -49,7 +54,7 @@
                                              height="420px" focusble="false">
                                     </a>
                                     <div class="card-body">
-                                        <p class="card-text">
+                                        <p class="card-text overflow-hidden" style="max-height = 10vh;">
                                             <a class="link-secondary h3" th:href="@{'/dish/get/' + ${dish.id}}"
                                                th:text="${dish.name}"></a>
                                             <br>
@@ -84,11 +89,11 @@
                             </div>
                         </div>
                     </div>
-
-                    <div th:if="${dishes.empty}">No dishes found for selected ingredients :(</div>
+                    <div th:if="${dishes.empty}">No dishes found for selected ingredients 😔</div>
                 </div>
                 <br>
                 <form>
+                    <hr class="hr"/>
                     <a class="btn btn-secondary" href="/allingredients" role="button">New search</a>
                 </form>
             </div>
@@ -97,9 +102,8 @@
     <div th:insert="fragments/footer :: footer"></div>
 </div>
 <script>
-        const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
-        const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
-
+        const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+        const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
 
 </script>
 <script src="/../bootstrap/bootstrap-5.3.0-alpha3-dist/js/popper.min.js"></script>
@@ -130,10 +134,10 @@
                     if (theme == "dark") indicators[i].style.opacity = 0.7;
                     else indicators[i].style.opacity = 1;
                 } else {
-                indicators[i].style.backgroundColor = "#FF6D60";
-                indicators[i].style.borderColor = "#FF6D60"
-                if (theme == "dark") indicators[i].style.opacity = 0.7;
-                else indicators[i].style.opacity = 1;
+                    indicators[i].style.backgroundColor = "#FF6D60";
+                    indicators[i].style.borderColor = "#FF6D60"
+                    if (theme == "dark") indicators[i].style.opacity = 0.7;
+                    else indicators[i].style.opacity = 1;
                 }
             }
         }
@@ -156,7 +160,6 @@
                 }
             }
         }
-
 
 </script>
 </body>
