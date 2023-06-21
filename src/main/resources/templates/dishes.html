@@ -39,13 +39,12 @@
                     </td>
                     <hr class="hr"/>
                 </tr>
-
             </div>
 
             <div class="album p-2">
                 <div class="container">
-                    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-                        <div class="col" th:each="dish, need : ${dishes}">
+                    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-3 d-flex justify-content-center">
+                        <div class="col" th:each="dish, need : ${dishes}" style="width: 380px">
                             <div class="card shadow-lg rounded-5 h-100">
                                 <div class="card-top">
                                     <a th:href="@{'/dish/get/' + ${dish.id}}">
