@@ -2,6 +2,7 @@ package com.github.Seweryn91.WhatTheFridge.service;
 
 import com.github.Seweryn91.WhatTheFridge.model.Dish;
 import com.github.Seweryn91.WhatTheFridge.model.Ingredient;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 import java.util.Set;
@@ -25,5 +26,7 @@ public interface DishService {
     List<Dish> findSweetByIngredientNamesIn(Set<String> ingredientsNames);
 
     List<Dish> findSavoryByIngredientNamesIn(Set<String> ingredientNames);
+
+    Page<Dish> findPaginated(int pageNo, int pageSize, String sortField, String sortDirection);
 
 }

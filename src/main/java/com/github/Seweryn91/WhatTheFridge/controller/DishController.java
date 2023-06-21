@@ -5,6 +5,7 @@ import com.github.Seweryn91.WhatTheFridge.model.Ingredient;
 import com.github.Seweryn91.WhatTheFridge.service.DishService;
 import com.github.Seweryn91.WhatTheFridge.service.IngredientService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -108,7 +109,28 @@ public class DishController {
     @GetMapping("/dishes/all")
     @PreAuthorize("hasRole('ADMIN')")
     public String showAllDishes(Model model) {
-        model.addAttribute("alldishes", dishService.getDishList());
+        return findPaginated(1, "name", "asc", model);
+        //model.addAttribute("alldishes", dishService.getDishList());
+        //return "alldishes";
+    }
+
+    @GetMapping("/dishes/all/{pageNo}")
+    public String findPaginated(@PathVariable("pageNo") int pageNo, @RequestParam("sortField") String sortField,
+                                @RequestParam("sortDir") String sortDir, Model model) {
+        int pageSize = 10;
+
+        Page<Dish> page = dishService.findPaginated(pageNo, pageSize, sortField, sortDir);
+        List<Dish> dishList = page.getContent();
+
+        model.addAttribute("currentPage", pageNo);
+        model.addAttribute("totalPages", page.getTotalPages());
+        model.addAttribute("totalItems", page.getTotalElements());
+
+        model.addAttribute("sortField", sortField);
+        model.addAttribute("sortDir", sortDir);
+        model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
+
+        model.addAttribute("allDishes", dishList);
         return "alldishes";
     }
 
