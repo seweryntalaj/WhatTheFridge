@@ -22,13 +22,13 @@
         </div>
         <div class="col-md-8 offset-md-2 p-3 border border-secondary-subtle rounded">
             <div class="container">
-                <h1>Ingredient</h1>
+                <h1>Update ingredient</h1>
                 <hr>
-                <h2>Update ingredient</h2>
                 <form action="#" th:action="@{/ingredient/save}" th:object="${ingredient}" method="POST">
                     <input type="hidden" th:field="*{id}">
                     Name:
                     <input type="text" th:field="*{name}" th:value="*{name}">
+                    <br>
                     <button class="btn btn-secondary" type="submit">Update Ingredient</button>
                 </form>
                 <hr>

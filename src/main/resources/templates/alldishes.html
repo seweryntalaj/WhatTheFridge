@@ -89,13 +89,12 @@
                     </div>
                 </div>
             </div>
+            <div th:if="${allDishes.empty}">No dishes found for selected ingredients :(</div>
+            <br>
+            <form>
+                <a role="button" class="btn btn-secondary" th:onclick="history.back()">Go back</a>
+            </form>
         </div>
-
-        <div th:if="${allDishes.empty}">No dishes found for selected ingredients :(</div>
-        <br>
-        <form>
-            <a role="button" class="btn btn-secondary" th:onclick="history.back()">Go back</a>
-        </form>
     </div>
 </div>
 <div th:insert="fragments/footer :: footer"></div>

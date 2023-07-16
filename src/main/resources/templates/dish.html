@@ -35,10 +35,10 @@
                     <img th:src="${dish.pictureLink}" style="object-fit: cover; width: 80%; height: 420px; display: block;
       margin-left: auto; margin-right: auto;" class="rounded-5" alt="Dish picture">
                 </div>
-                <div class="col py-5" name="dishInfo">
+                <div class="col pt-5 pb-2" name="dishInfo">
                     <div colass="row py-3">Dish type:
-                        <span th:if="*{dish.sweetDish}">SWEET</span>
-                        <span th:if="*{!dish.sweetDish}">SAVORY</span>
+                        <span th:if="*{dish.sweetDish}">sweet</span>
+                        <span th:if="*{!dish.sweetDish}">savory</span>
                     </div>
                     <div class="row py-3" name="ingredients">
                         <tr>
@@ -52,8 +52,8 @@
                                     <label class="btn btn-outline-succes" th:for="${ingredient.name}"
                                            th:text="${ingredient.name}"></label></a>
                             </div>
-                            <div>
-                                <a th:if="${storedIngredients} != null">WHAT YOU HAVE:</a>
+                            <div class="pt-1">
+                                <a th:if="${storedIngredients} != null">Ingredients you have:</a>
                                 <a th:each="i : ${storedIngredients}">
                                     <input type="checkbox" class="btn-check" th:id="${i.name}" name="ingredient"
                                            th:value="${i.name}"
@@ -61,7 +61,7 @@
                                     <label class="btn btn-outline-succes" th:for="${i.name}"
                                            th:text="${i.name}"></label></a>
                             </div>
-                            <div th:if="${missing != null AND !missing.empty}">WHAT YOU NEED:
+                            <div th:if="${missing != null AND !missing.empty}" class="pt-1">Ingredients you need:
                                 <a th:each="i: ${missing}">
                                     <input type="checkbox" class="btn-check" th:id="${i.name}" name="ingredient"
                                            th:value="${i.name}"
@@ -73,9 +73,8 @@
                         </tr>
                     </div>
                     <div th:unless="${dish.recipeLink == null OR dish.recipeLink == ''}">
-                        <div class="row px-3 pt-3">
-                            Recipe link
-                            <a class="btn btn-secondary" style="width: auto;" th:href="${dish.recipeLink}"
+                        <div class="row px-3 pt-1 d-inline-block">
+                            Recipe link <a class="btn btn-secondary" style="width: auto;" th:href="${dish.recipeLink}"
                                role="button">HERE</a>
                         </div>
                     </div>

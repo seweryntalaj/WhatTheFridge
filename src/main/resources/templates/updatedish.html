@@ -24,24 +24,29 @@
         <div class="col-md-8 offset-md-2 p-3 border border-secondary-subtle rounded">
             <div th:if="${dish} != null">
                 <h1>Edit dish</h1>
-                <hr>
+
                 <form action="#" th:action="@{/dish/save/}" th:object="${dish}" method="POST">
                     <input type="number" th:field="*{id}" hidden="hidden">
                     Dish name: <input type="text" th:field="*{name}" placeholder="Dish name"
-                                      class="form-control mb-4 col-4"><br>
+                                      class="form-control mb-4 col-4">
                     Is sweet:<input type="checkbox" label="is sweet?" th:field="*{sweetDish}">
                     <br>
                     <div name="ingredients">
                         <tr>
                             <td>Ingredients:</td>
                             <td>
+
                                 <th:block th:each="ingredientEntry : ${map}">
-                                    <input type="checkbox" class="ingredientsMap" name="ings"
-                                           th:value="${ingredientEntry.key.id}"
-                                           th:checked="${ingredientEntry.value}">
-                                    <label th:text="${ingredientEntry.key.name}"
-                                           th:for="${#ids.next('ingredientsMap[__${ingredientEntry.key}__].name')}"></label>
+                                    <div class="ingredient-selector">
+                                        <input type="checkbox" name="ings"
+                                               th:value="${ingredientEntry.key.id}"
+                                               th:id="${#ids.next('ingredientsMap[__${ingredientEntry.key}__].name')}"
+                                               th:checked="${ingredientEntry.value}">
+                                        <label th:text="${ingredientEntry.key.name}"
+                                               th:for="${#ids.next('ingredientsMap[__${ingredientEntry.key}__].name')}"></label>
+                                    </div>
                                 </th:block>
+
                             </td>
                         </tr>
                     </div>
@@ -49,11 +54,10 @@
                     <br>
                     Picture link: <input type="text" th:field="*{pictureLink}" placeholder="Picture link"
                                          th:value="*{pictureLink}" class="form-control mb-4 col-4">
-                    <br>
+
                     Recipe link: <input type="text" th:field="*{recipeLink}" placeholder="Recipe link"
                                         th:value="*{recipeLink}" class="form-control mb-4 col-4">
                     <br>
-
                     <button type="submit" class="btn btn-secondary col-2">Save Dish</button>
                 </form>
 
