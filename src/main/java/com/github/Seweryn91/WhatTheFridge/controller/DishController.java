@@ -139,6 +139,10 @@ public class DishController {
     public String updateDish(@PathVariable("id") long id, Model model) {
         Dish dish = dishService.findDishById(id);
         model.addAttribute("dish", dish);
+
+        List<Ingredient> ingredients = dish.getIngredients().stream().toList();
+        model.addAttribute("ingredients", ingredients);
+
         Set<Ingredient> dishIngredients = dishService.getIngredients(id);
         List<Ingredient> allIngredients = new ArrayList<>(ingredientService.getAllIngredients());
         getIngredientSetFromMap(getCheckedIngredientsMap(dishIngredients, allIngredients));
