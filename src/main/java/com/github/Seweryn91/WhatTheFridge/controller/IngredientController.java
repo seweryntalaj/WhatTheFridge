@@ -10,7 +10,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Set;
 
 @Controller
 public class IngredientController {
@@ -52,7 +51,7 @@ public class IngredientController {
     @GetMapping("/ingredient/get/{id}")
     public String showIngredient(@PathVariable("id") long id, Model model) {
         Ingredient ingredient = ingredientService.getIngredientById(id);
-        Set<Dish> dishes = ingredient.getDishes();
+        List<Dish> dishes = ingredient.getDishes().stream().sorted().toList();
         model.addAttribute("ingredient", ingredient);
         model.addAttribute("dishes", dishes);
         return "ingredient";
