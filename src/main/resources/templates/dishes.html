@@ -54,15 +54,15 @@
                                     </a>
                                     <div class="card-body">
                                         <p class="card-text overflow-hidden" style="max-height = 10vh;">
-                                            <a class="link-secondary h3" th:href="@{'/dish/get/' + ${dish.id}}"
+                                            <a class="link-secondary h3 text-decoration-none"
+                                               th:href="@{'/dish/get/' + ${dish.id}}"
                                                th:text="${dish.name}"></a>
                                             <br>
                                         <div th:if="${dish.sweetDish}" style="background-color: #C88EA7; border: 1px;
-                                    border-radius: 4px; color: #D3D3D3" class="sweetType text-center small">🧁 SWEET 🍦
+                                    border-radius: 4px; color: #FFFFFF" class="sweetType text-center small">SWEET
                                         </div>
                                         <div th:unless="${dish.sweetDish}" style="background-color: #884A39; border: 1px;
-                                    border-radius: 4px; color: #D3D3D3;" class="savoryType text-center small">🫒 SAVORY
-                                            🧄
+                                    border-radius: 4px; color: #FFFFFF" class="savoryType text-center small">SAVORY
                                         </div>
                                         <br>
                                         <p>Ingredients needed:
@@ -74,9 +74,9 @@
                                         </p>
                                         <div class="d-flex justify-content-between align-items-center">
                                             <div class="btn-group">
-                                                <a th:href="@{'/dish/get/' + ${dish.id}}"
-                                                   class="btn btn-sm btn-outline-secondary" type="button">View</a>
                                                 <p sec:authorize="hasRole('ADMIN')">
+                                                    <a th:href="@{'/dish/get/' + ${dish.id}}"
+                                                       class="btn btn-sm btn-outline-secondary" type="button">View</a>
                                                     <a th:href="@{'/dish/update/' + ${dish.id}}"
                                                        class="btn btn-sm btn-outline-secondary" type="button">Edit</a>
                                                 </p>
@@ -103,6 +103,7 @@
 <script>
         const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
         const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
+
 
 </script>
 <script src="/../bootstrap/bootstrap-5.3.0-alpha3-dist/js/popper.min.js"></script>
@@ -159,6 +160,7 @@
                 }
             }
         }
+
 
 </script>
 </body>
