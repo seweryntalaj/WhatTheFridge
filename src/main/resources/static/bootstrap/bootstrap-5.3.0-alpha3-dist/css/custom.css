@@ -4,6 +4,27 @@
   height: 26rem;
 }
 
+#ingredient-selector input {
+ opacity = 0;
+}
+
+.wtf-button {
+    background-color: #3180B6;
+    border-color: #3180B6;
+}
+
+input[type=checkbox] + label {
+ color: #3180B6 !important;
+ border-color: #3180B6 !important;
+ }
+
+input[type=checkbox]:hover + label,
+input[type=checkbox]:checked + label {
+     color: white !important;
+     background-color: #3180B6 !important;
+     border-color: #3180B6 !important;
+}
+
 #needed-ings {
   background-color: transparent;
 }

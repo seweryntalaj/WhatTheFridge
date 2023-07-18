@@ -33,11 +33,15 @@
                                 <input type="checkbox" class="btn-check" th:id="${ingredient.name}"
                                        name="ingredient" style="margin-bottom: 2px; margin-top: 2px;"
                                        th:value="${ingredient.name}" autocomplete="off"/>
-                                <label class="btn btn-outline-success" th:for="${ingredient.name}"
+                                <label class="btn btn-outline-primary fridge-blue"
+                                       th:for="${ingredient.name}"
                                        th:text="${ingredient.name}"></label>
                             </th:block>
                         </div>
                     </td>
+                    <div class="text-center pt-4">
+                    <button type="button" class="btn btn-outline-secondary btn-sm" th:onclick="clearSelection()">Clear selection</button>
+                    </div>
                 </tr>
                 <hr class="hr"/>
                 <p class="text-center">What type of dish do you want?</p>
@@ -53,23 +57,16 @@
                 <div class="h3 text-center">Ready?</div>
                 <p></p>
                 <div class="d-flex justify-content-center">
-                    <button class="btn btn-success btn-lg rounded-0 fw-semibold" type="submit">WHAT THE FRIDGE?!</button>
+                    <button class="btn btn-secondary wtf-button btn-lg fw-semibold" style="background-color: #3180B6;" type="submit">WHAT THE FRIDGE?!</button>
                 </div>
             </form>
-            <hr class="hr"/>
-            <p></p>
-            <a class="btn btn-secondary" th:onclick="clearSelection()" role="button">Clear selection</a>
-            <p></p>
+
         </div>
         <script>function clearSelection() {
     var boxes = document.getElementsByClassName("btn-check")
     for(let i = 0; i < boxes.length; i++) {
         boxes[i].checked = false;}
     }
-
-
-
-
         </script>
         <div th:insert="fragments/footer :: footer"></div>
     </div>
