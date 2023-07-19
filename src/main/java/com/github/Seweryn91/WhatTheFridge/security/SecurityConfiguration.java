@@ -9,8 +9,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.Http403ForbiddenEntryPoint;
 
 
 @Configuration
@@ -18,7 +18,7 @@ import org.springframework.security.web.authentication.Http403ForbiddenEntryPoin
 public class SecurityConfiguration {
 
     public static final String[] ENDPOINT_WHITELIST = {"/", "/index", "/dishes", "dish/get/*", "/allingredients",
-            "/login", "/bootstrap/**"};
+            "/login", "/bootstrap/**", "/images/**", "/error"};
 
     @Bean
     public InMemoryUserDetailsManager userDetailsService() {
@@ -33,6 +33,11 @@ public class SecurityConfiguration {
         return new BCryptPasswordEncoder();
     }
 
+    @Bean
+    public AuthenticationEntryPoint authEntryPoint() {
+        return new CustomAuthEntryPoint();
+    }
+
    @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
@@ -43,12 +48,12 @@ public class SecurityConfiguration {
                         .loginPage("/login")
                         .defaultSuccessUrl("/", true)
                         .permitAll())
+                .exceptionHandling().authenticationEntryPoint(authEntryPoint()).and()
                 .logout(logout -> logout
                         .logoutSuccessUrl("/")
                         .invalidateHttpSession(true)
                         .clearAuthentication(true)
-                        .deleteCookies("JSESSIONID"))
-                .exceptionHandling().authenticationEntryPoint(new Http403ForbiddenEntryPoint());
+                        .deleteCookies("JSESSIONID"));
 
         return http.build();
     }
