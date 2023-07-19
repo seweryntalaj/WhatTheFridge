@@ -1,13 +1,15 @@
 package com.github.Seweryn91.WhatTheFridge.service;
 
-import com.github.Seweryn91.WhatTheFridge.model.Ingredient;
 import com.github.Seweryn91.WhatTheFridge.model.Dish;
+import com.github.Seweryn91.WhatTheFridge.model.Ingredient;
 import com.github.Seweryn91.WhatTheFridge.repository.DishRepository;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -15,7 +17,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
@@ -73,9 +76,9 @@ class DishServiceImplTest {
         return ingredients;
     }
 
-    public Set<Dish> createDishSet() {
+    public List<Dish> createDishList() {
         Set<Ingredient> ingredients = createIngredientsSet();
-        Set<Dish> dishes = new HashSet<>();
+        List<Dish> dishes = new ArrayList<>();
         Dish dish1 = new Dish();
         dish1.setName("Savory Dish");
         dish1.setSweetDish(false);
@@ -115,7 +118,7 @@ class DishServiceImplTest {
 
     @Test
     public void test_getDishList() {
-      List<Dish> dishes = createDishSet().stream().toList();
+      List<Dish> dishes = createDishList().stream().toList();
       when(dishRepository.findAll()).thenReturn(dishes);
       assertEquals(dishes, dishService.getDishList());
     }
@@ -154,7 +157,7 @@ class DishServiceImplTest {
     @Test
     public void test_findByIngredientsNameIn() {
         Set<Ingredient> ingredients = createIngredientsSet();
-        Set<Dish> dishes = createDishSet();
+        List<Dish> dishes = createDishList();
         String anyIngredientName = ingredients.stream().findFirst().get().getName();
         when(dishRepository.findByIngredientNamesIn(Set.of(anyIngredientName))).thenReturn(dishes);
         assertEquals(dishes ,dishService.findByIngredientNamesIn(Set.of(anyIngredientName)));
@@ -162,9 +165,9 @@ class DishServiceImplTest {
 
     @Test
     public void test_findSweetByIngredientsNameIn() {
-      Set<Dish> dishes = createDishSet();
+      List<Dish> dishes = createDishList();
       Set<Ingredient> ingredients = createIngredientsSet();
-      Set<Dish> expected = dishes.stream().filter(Dish::isSweetDish).collect(Collectors.toSet());
+      List<Dish> expected = dishes.stream().filter(Dish::isSweetDish).collect(Collectors.toList());
       String anyIngredientName = ingredients.stream().findFirst().get().getName();
       when(dishRepository.findSweetByIngredientNamesIn(Set.of(anyIngredientName))).thenReturn(expected);
       assertEquals(expected, dishService.findSweetByIngredientNamesIn(Set.of(anyIngredientName)));
@@ -172,11 +175,11 @@ class DishServiceImplTest {
 
     @Test
     public void test_findSavoryByIngredientsNameIn() {
-        Set<Dish> dishes = createDishSet();
+        List<Dish> dishes = createDishList();
         Set<Ingredient> ingredients = createIngredientsSet();
         String anyIngredientName = ingredients.stream().findFirst().get().getName();
-        Set<Dish> expected = dishes.stream().filter(d -> !d.isSweetDish() &&
-                d.getIngredients().equals(Set.of(anyIngredientName))).collect(Collectors.toSet());
+        List<Dish> expected = dishes.stream().filter(d -> !d.isSweetDish() &&
+                d.getIngredients().equals(Set.of(anyIngredientName))).collect(Collectors.toList());
         when(dishRepository.findSavoryByIngredientNamesIn(Set.of(anyIngredientName))).thenReturn(expected);
         assertEquals(expected, dishService.findSavoryByIngredientNamesIn(Set.of(anyIngredientName)));
     }
