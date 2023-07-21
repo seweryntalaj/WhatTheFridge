@@ -56,6 +56,11 @@ input[type=checkbox].ing-missing:checked + label {
   background-color: transparent;
 }
 
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;}
+
 #page-container {
   position: relative;
   min-height: 100vh;
@@ -63,7 +68,7 @@ input[type=checkbox].ing-missing:checked + label {
 
 #content-wrap {
   padding-top: 5rem;
-  padding-bottom: min(10rem, 30%);
+  padding-bottom: 12rem;
 }
 
 #header {
@@ -77,5 +82,5 @@ input[type=checkbox].ing-missing:checked + label {
   position: absolute;
   bottom: 0;
   width: 100%;
-  max-height: min(10rem, 30%);
+  max-height: 12rem;
 }
