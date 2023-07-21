@@ -14,29 +14,31 @@
 <div id="page-container">
     <div id="content-wrap">
         <div sec:authorize="!hasRole('ADMIN')">
-        <div th:insert="fragments/header :: header"></div>
-    </div>
+            <div th:insert="fragments/header :: header"></div>
+        </div>
         <div sec:authorize="hasRole('ADMIN')">
             <div th:replace="fragments/header :: admin-header"></div>
         </div>
-        <div class="container mb-3 p-3 border border-secondary-subtle rounded d-flex justify-content-center">
-            <div th:if="${param.error}">
-                Invalid username and password.
-            </div>
-            <div th:if="${param.logout}">
-                You have been logged out.
-            </div>
-            <form th:action="@{/login}" method="post">
-                <div class="mb-2">
-                    <div><label>Username: <input type="text" class="form-control" id="username"
-                                                 name="username"/></label></div>
+        <div class="pt-3">
+            <div class="container mb-3 p-3 border border-secondary-subtle rounded d-flex justify-content-center">
+                <div th:if="${param.error}">
+                    Invalid username and password.
                 </div>
-                <div class="mb-2">
-                    <div><label>Password: <input type="password" class="form-control" id="password"
-                                                 name="password"/></label></div>
+                <div th:if="${param.logout}">
+                    You have been logged out.
                 </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
+                <form th:action="@{/login}" method="post">
+                    <div class="mb-2">
+                        <div><label>Username: <input type="text" class="form-control" id="username"
+                                                     name="username"/></label></div>
+                    </div>
+                    <div class="mb-2">
+                        <div><label>Password: <input type="password" class="form-control" id="password"
+                                                     name="password"/></label></div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
         </div>
     </div>
 </div>

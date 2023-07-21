@@ -20,33 +20,34 @@
         <div sec:authorize="hasRole('ADMIN')">
             <div th:replace="fragments/header :: admin-header"></div>
         </div>
-
-        <div class="col-md-8 offset-md-2 p-3 border border-secondary-subtle-rounded">
-            <p th:text="${ingredient.name}"></p>
-            This ingredient is present in:
-            <div th:if="${!dishes.empty}">
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th scope="col">Dish ID</th>
-                        <th scope="col">Dish name</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <th:block th:each="dish: ${dishes}">
+        <div class="pt-3">
+            <div class="col-md-8 offset-md-2 p-3 border border-secondary-subtle-rounded">
+                <p th:text="${ingredient.name}"></p>
+                This ingredient is present in:
+                <div th:if="${!dishes.empty}">
+                    <table class="table">
+                        <thead>
                         <tr>
-                            <th scope="row" th:text="${dish.id}"></th>
-                            <td><a th:href="@{'/dish/get/' + ${dish.id}}" th:text="${dish.name}"></a></td>
+                            <th scope="col">Dish ID</th>
+                            <th scope="col">Dish name</th>
                         </tr>
-                    </th:block>
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                        <th:block th:each="dish: ${dishes}">
+                            <tr>
+                                <th scope="row" th:text="${dish.id}"></th>
+                                <td><a th:href="@{'/dish/get/' + ${dish.id}}" th:text="${dish.name}"></a></td>
+                            </tr>
+                        </th:block>
+                        </tbody>
+                    </table>
+                </div>
+                <div th:if="${dishes.empty}">No dishes found for selected ingredient :(</div>
+                <br>
+                <form>
+                    <a role="button" class="btn btn-secondary" th:onclick="history.back()">Go back</a>
+                </form>
             </div>
-            <div th:if="${dishes.empty}">No dishes found for selected ingredient :(</div>
-            <br>
-            <form>
-                <a role="button" class="btn btn-secondary" th:onclick="history.back()">Go back</a>
-            </form>
         </div>
     </div>
     <div th:insert="fragments/footer :: footer"></div>

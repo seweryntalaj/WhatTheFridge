@@ -20,38 +20,49 @@
         <div sec:authorize="hasRole('ADMIN')">
             <div th:replace="fragments/header :: admin-header"></div>
         </div>
-        <div class="col-md-8 offset-md-2 p-3 border border-secondary-subtle rounded">
-            <div class="container">
-                <h1>New Dish</h1>
-                <hr>
-                <form action="#" th:action="@{'/dish/save/'}" th:object="${dish}" method="POST">
-                    <label for="dishName">Dish name</label>
-                    <input id="dishName" type="text" th:field="*{name}" placeholder="Dish name"
-                           class="form-control mb-4 col-4"><br>
-                    <label for="isSweet">Is sweet:</label>
-                    <input id="isSweet" type="checkbox" label="is sweet?" th:field="*{sweetDish}"
-                           th:checked="*{sweetDish}">
-                    <br>
-                    <tr>
-                        <td>Ingredients</td>
-                        <td>
-                            <th:block th:each="ingredient : ${ingredients}">
-                                <input type="checkbox" name="ings" th:value="${ingredient.id}"/>
-                                <label th:text="${ingredient.name}"></label>
-                            </th:block>
-                        </td>
-                    </tr>
+        <div class="pt-3">
+            <div class="col-md-8 offset-md-2 pt-2 pb-2 border border-secondary-subtle rounded">
+                <div class="container">
+                    <h1>New Dish</h1>
+                    <hr>
+                    <form action="#" th:action="@{'/dish/save/'}" th:object="${dish}" method="POST">
+                        <label for="dishName">Dish name</label>
+                        <input id="dishName" type="text" th:field="*{name}" placeholder="Dish name"
+                               class="form-control mb-2 col-4">
+                        <br>
+                        <label class="mb-2" for="isSweet">Is sweet:</label>
+                        <input id="isSweet" class="mb-3" type="checkbox" label="is sweet?" th:field="*{sweetDish}"
+                               th:checked="*{sweetDish}">
+                        <br>
+                        <div name="ingredients">
+                            <tr>
+                                <td>Ingredients:</td>
+                                <td>
 
-                    <input type="text" th:field="*{pictureLink}" placeholder="Picture link"
-                           class="form-control mb-4 col-4"><br>
-                    <input type="text" th:field="*{recipeLink}" placeholder="Recipe link"
-                           class="form-control mb-4 col-4"><br>
+                                    <th:block th:each="ingredient : ${ingredients}">
+                                        <div class="ingredient-selector">
+                                            <input type="checkbox" name="ings"
+                                                   th:value="${ingredient.id}"
+                                                   th:id="${ingredient.id}">
+                                            <label th:text="${ingredient.name}"
+                                                   th:for="${ingredient.name}"></label>
+                                        </div>
+                                    </th:block>
 
-                    <button type="submit" class="btn btn-info col-2">Save Dish</button>
-                </form>
+                                </td>
+                            </tr>
+                        </div>
+                        <br>
+                        <input type="text" th:field="*{pictureLink}" placeholder="Picture link"
+                               class="form-control mb-2 col-4"><br>
+                        <input type="text" th:field="*{recipeLink}" placeholder="Recipe link"
+                               class="form-control mb-2 col-4"><br>
 
-                <hr>
-                <a class="btn btn-secondary" th:href="@{//dishes/all}" role="button">Back to dishes list</a>
+                        <button type="submit" class="btn wtf-button col-2">Save Dish</button>
+                    </form>
+                    <hr>
+                    <a class="btn btn-secondary" th:href="@{//dishes/all}" role="button">Back to dishes list</a>
+                </div>
             </div>
         </div>
         <div th:insert="fragments/footer :: footer"></div>

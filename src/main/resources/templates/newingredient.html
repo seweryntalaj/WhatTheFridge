@@ -20,20 +20,22 @@
         <div sec:authorize="hasRole('ADMIN')">
             <div th:replace="fragments/header :: admin-header"></div>
         </div>
-        <div class="col-md-8 offset-md-2 p-3 border border-secondary-subtle rounded">
-            <div class="container">
-                <h1>New Ingredient</h1>
-                <hr>
-                <h2>Create Ingredient</h2>
+        <div class="pt-3">
+            <div class="col-md-8 offset-md-2 p-3 border border-secondary-subtle rounded">
+                <div class="container">
+                    <h1>New Ingredient</h1>
+                    <hr>
+                    <form action="#" th:action="@{/ingredient/save}" th:object="${ingredient}" method="POST">
+                        <input type="text" th:field="*{name}" placeholder="Ingredient name"
+                               class="form-control mb-4 col-4">
+                        <button type="submit" class="btn wtf-button col-2">Save Ingredient</button>
+                    </form>
 
-                <form action="#" th:action="@{/ingredient/save}" th:object="${ingredient}" method="POST">
-                    <input type="text" th:field="*{name}" placeholder="Ingredient name" class="form-control mb-4 col-4">
-                    <button type="submit" class="btn btn-info col-2">Save Ingredient</button>
-                </form>
+                    <hr>
 
-                <hr>
-
-                <a class="btn btn-secondary" th:href="@{/ingredients/all}" role="button">Back to ingredients list</a>
+                    <a class="btn btn-secondary" th:href="@{/ingredients/all}" role="button">Back to ingredients
+                        list</a>
+                </div>
             </div>
         </div>
         <div th:insert="fragments/footer :: footer"></div>
