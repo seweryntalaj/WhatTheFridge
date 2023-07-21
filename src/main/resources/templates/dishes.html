@@ -20,81 +20,87 @@
         <div sec:authorize="hasRole('ADMIN')">
             <div th:replace="fragments/header :: admin-header"></div>
         </div>
-        <div class="col-md-8 offset-md-2 p-3 mb-3 border border-secondary-subtle rounded">
-            <div class="container">
-                <tr>
-                    <td>Selected ingredients:</td>
-                    <td>
-                        <p></p>
-                        <div id="chosen-ingredients"
-                             class="d-flex flex-wrap justify-content-center column-gap-2 row-gap-2">
-                            <th:block th:each="entry: ${chosenIngredients}">
-                                <input type="checkbox" class="btn-check" th:id="${entry.name}"
-                                       name="ingredient" style="margin-bottom: 2px; margin-top: 2px;"
-                                       th:value="${entry.name}" autocomplete="off" disabled/>
-                                <label class="btn btn-outline-success" th:for="${entry.name}"
-                                       th:text="${entry.name}"></label>
-                            </th:block>
-                        </div>
-                    </td>
-                    <hr class="hr"/>
-                </tr>
-            </div>
 
-            <div class="album p-2">
+        <div class="container justify-content-md-center pt-3">
+            <div class="col border pt-3 border-secondary-subtle rounded">
                 <div class="container">
-                    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-3 d-flex justify-content-center">
-                        <div class="col" th:each="dish, need : ${dishes}" style="width: 380px">
-                            <div class="card shadow-lg rounded-5 h-100">
-                                <div class="card-top">
-                                    <a th:href="@{'/dish/get/' + ${dish.id}}">
-                                        <img th:src="${dish.pictureLink}" alt="🍽"
-                                             class="card-img-top rounded-top-5 img-responsive"
-                                             height="420px" focusble="false">
-                                    </a>
-                                    <div class="card-body">
-                                        <p class="card-text overflow-hidden" style="max-height = 10vh;">
-                                            <a class="link-secondary h3 text-decoration-none"
-                                               th:href="@{'/dish/get/' + ${dish.id}}"
-                                               th:text="${dish.name}"></a>
-                                            <br>
-                                        <div th:if="${dish.sweetDish}" style="background-color: #E299B5; border: 1px;
-                                    border-radius: 4px; color: #FFFFFF" class="sweetType text-center small">SWEET
+                    <tr>
+                        <td>Selected ingredients:</td>
+                        <td>
+                            <p></p>
+                            <div id="chosen-ingredients"
+                                 class="d-flex flex-wrap justify-content-center column-gap-2 row-gap-2">
+                                <th:block th:each="entry: ${chosenIngredients}">
+                                    <input type="checkbox" class="btn-check fridge-blue" th:id="${entry.name}"
+                                           name="ingredient" style="margin-bottom: 2px; margin-top: 2px;"
+                                           th:value="${entry.name}" autocomplete="off" disabled/>
+                                    <label class="btn btn-outline-success fridge-blue" th:for="${entry.name}"
+                                           th:text="${entry.name}"></label>
+                                </th:block>
+                            </div>
+                        </td>
+                        <hr class="hr"/>
+                    </tr>
+                </div>
+
+                <div class="album p-1">
+                    <div class="container-fluid">
+                        <div class="container">
+                            <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-2 d-flex justify-content-center">
+                                <div class="col" th:each="dish, need : ${dishes}" style="max-width: 360px;">
+                                    <div class="card shadow-lg rounded-5 h-100">
+                                        <div class="card-top">
+                                            <a th:href="@{'/dish/get/' + ${dish.id}}">
+                                                <img th:src="${dish.pictureLink}" alt="🍽"
+                                                     class="card-img-top rounded-top-5 img-responsive"
+                                                     height="420px" focusble="false">
+                                            </a>
                                         </div>
-                                        <div th:unless="${dish.sweetDish}" style="background-color: #884A39; border: 1px;
-                                    border-radius: 4px; color: #FFFFFF" class="savoryType text-center small">SAVORY
-                                        </div>
-                                        <br>
-                                        <p>Ingredients needed:
-                                            <button class="btn btn-rounded" style="color: black"
-                                                    data-bs-toggle="tooltip"
-                                                    title="You need this many ingredients" id="needed-ings"
-                                                    th:text="${needs[need.index]}"></button>
-                                        </p>
-                                        </p>
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <div class="btn-group">
-                                                <p sec:authorize="hasRole('ADMIN')">
-                                                    <a th:href="@{'/dish/get/' + ${dish.id}}"
-                                                       class="btn btn-sm btn-outline-secondary" type="button">View</a>
-                                                    <a th:href="@{'/dish/update/' + ${dish.id}}"
-                                                       class="btn btn-sm btn-outline-secondary" type="button">Edit</a>
-                                                </p>
+
+                                        <div class="card-body">
+                                            <p class="card-text overflow-hidden" style="max-height = 10vh;">
+                                                <a class="link-secondary h3 text-decoration-none"
+                                                   th:href="@{'/dish/get/' + ${dish.id}}"
+                                                   th:text="${dish.name}"></a>
+
+                                            <div th:if="${dish.sweetDish}" style="background-color: #E299B5; border: 1px;
+                                    border-radius: 4px; color: #FFFFFF" class="sweetType text-center small">SWEET</div>
+                                            <div th:unless="${dish.sweetDish}" style="background-color: #884A39; border: 1px;
+                                    border-radius: 4px; color: #FFFFFF" class="savoryType text-center small">SAVORY</div>
+                                            </p>
+
+                                            <p>Ingredients needed:
+                                                <button class="btn btn-rounded" style="color: black"
+                                                        data-bs-toggle="tooltip"
+                                                        title="You need this many ingredients" id="needed-ings"
+                                                        th:text="${needs[need.index]}"></button>
+                                            </p>
+
+                                            <div sec:authorize="hasRole('ADMIN')">
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <div class="btn-group">
+                                                        <a th:href="@{'/dish/get/' + ${dish.id}}"
+                                                           class="btn btn-sm btn-outline-secondary"
+                                                           type="button">View</a>
+                                                        <a th:href="@{'/dish/update/' + ${dish.id}}"
+                                                           class="btn btn-sm btn-outline-secondary"
+                                                           type="button">Edit</a>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
-                                        </p>
                                     </div>
                                 </div>
                             </div>
+                            <div th:if="${dishes.empty}">No dishes found for selected ingredients 😔</div>
                         </div>
+                        <br>
+                        <form>
+                            <hr class="hr"/>
+                            <a class="btn btn-secondary" href="/allingredients" role="button">New search</a>
+                        </form>
                     </div>
-                    <div th:if="${dishes.empty}">No dishes found for selected ingredients 😔</div>
                 </div>
-                <br>
-                <form>
-                    <hr class="hr"/>
-                    <a class="btn btn-secondary" href="/allingredients" role="button">New search</a>
-                </form>
             </div>
         </div>
     </div>
@@ -103,6 +109,13 @@
 <script>
         const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
         const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
+
+
+
+
+
+
+
 
 
 </script>
@@ -160,6 +173,13 @@
                 }
             }
         }
+
+
+
+
+
+
+
 
 
 </script>

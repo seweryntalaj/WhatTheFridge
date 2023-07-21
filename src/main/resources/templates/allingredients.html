@@ -30,7 +30,7 @@
                         <div id="ingredients-list"
                              class="d-flex flex-wrap justify-content-center grid-gap-2 row-gap-2 column-gap-2">
                             <th:block th:each="ingredient: ${ingredients}">
-                                <input type="checkbox" class="btn-check" th:id="${ingredient.name}"
+                                <input type="checkbox" class="btn-check fridge-blue" th:id="${ingredient.name}"
                                        name="ingredient" style="margin-bottom: 2px; margin-top: 2px;"
                                        th:value="${ingredient.name}" autocomplete="off"/>
                                 <label class="btn btn-outline-primary fridge-blue"

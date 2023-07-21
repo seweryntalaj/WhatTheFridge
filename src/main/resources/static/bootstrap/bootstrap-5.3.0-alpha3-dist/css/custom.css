@@ -1,7 +1,7 @@
 .card-img-top {
   object-fit: cover;
   width: 100%;
-  height: 26rem;
+  height: 25rem;
 }
 
 #ingredient-selector input {
@@ -13,16 +13,42 @@
     border-color: #3180B6;
 }
 
-input[type=checkbox] + label {
+input[type=checkbox].fridge-blue + label {
  color: #3180B6 !important;
  border-color: #3180B6 !important;
  }
 
-input[type=checkbox]:hover + label,
-input[type=checkbox]:checked + label {
+input[type=checkbox].fridge-blue:hover + label,
+input[type=checkbox].fridge-blue:checked + label {
      color: white !important;
      background-color: #3180B6 !important;
      border-color: #3180B6 !important;
+}
+
+input[type=checkbox].ing-present + label {
+ color: white !important;
+ border-color: green !important;
+ background-color: green;
+ }
+
+input[type=checkbox].ing-present:hover + label,
+input[type=checkbox].ing-present:checked + label {
+     color: white !important;
+     background-color: green !important;
+     border-color: green !important;
+}
+
+input[type=checkbox].ing-missing + label {
+ color: white !important;
+ border-color: red !important;
+ background-color: red;
+ }
+
+input[type=checkbox].ing-missing:hover + label,
+input[type=checkbox].ing-missing:checked + label {
+     color: white !important;
+     background-color: red !important;
+     border-color: red !important;
 }
 
 #needed-ings {
