@@ -9,6 +9,7 @@
 }
 
 .wtf-button {
+    color: white;
     background-color: #3180B6;
     border-color: #3180B6;
 }
@@ -40,15 +41,15 @@ input[type=checkbox].ing-present:checked + label {
 
 input[type=checkbox].ing-missing + label {
  color: white !important;
- border-color: red !important;
- background-color: red;
+ border-color: #ff9900 !important;
+ background-color: #ff9900;
  }
 
 input[type=checkbox].ing-missing:hover + label,
 input[type=checkbox].ing-missing:checked + label {
      color: white !important;
-     background-color: red !important;
-     border-color: red !important;
+     background-color: #ff9900 !important;
+     border-color: #ff9900 !important;
 }
 
 #needed-ings {
