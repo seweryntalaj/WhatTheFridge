@@ -108,7 +108,7 @@ INSERT INTO dish (name, sweetdish, picturelink, recipelink) VALUES ('Aloo gobi I
     'https://www.teaforturmeric.com/wp-content/uploads/2022/01/Aloo-Gobi-Cauliflower-Potato-Curry-08-728x1092.jpg',
     'https://www.teaforturmeric.com/aloo-gobi/');
 INSERT INTO dish_ingredient (fk_dish_id, fk_ingredient_id) VALUES (14, 15), (14, 20), (14, 30), (14, 31), (14, 40),
-    (14, 52), (14, 59);
+    (14, 53), (14, 59);
 
 INSERT INTO dish (name, sweetdish, picturelink, recipelink) VALUES ('Simple celery soup', false,
     'https://www.feastingathome.com/wp-content/uploads/2018/10/simple-celery-soup-103.jpg',
