@@ -22,7 +22,6 @@
         <div sec:authorize="hasRole('ADMIN')">
             <div th:replace="fragments/header :: admin-header"></div>
         </div>
-
         <div class="container justify-content-md-center pt-3">
             <div class="col border border-secondary-subtle rounded">
                 <div th:if="${dish} != null">
