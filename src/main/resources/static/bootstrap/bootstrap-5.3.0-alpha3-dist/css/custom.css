@@ -56,11 +56,6 @@ input[type=checkbox].ing-missing:checked + label {
   background-color: transparent;
 }
 
-body {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;}
-
 #page-container {
   position: relative;
   min-height: 100vh;
@@ -68,7 +63,7 @@ body {
 
 #content-wrap {
   padding-top: 5rem;
-  padding-bottom: 12rem;
+  padding-bottom: 6rem;
 }
 
 #header {
@@ -80,7 +75,5 @@ body {
 
 #footer {
   position: absolute;
-  bottom: 0;
-  width: 100%;
-  max-height: 12rem;
+  max-height: 6rem;
 }
