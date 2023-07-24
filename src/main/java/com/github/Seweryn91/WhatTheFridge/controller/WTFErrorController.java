@@ -14,7 +14,7 @@ public class WTFErrorController implements ErrorController {
 
     @GetMapping("/error")
     public String handleError(HttpServletRequest request) {
-        String errorPage = "/error/error";
+        String errorPage = "/error/error.html";
         return errorPage;
     }
 }
