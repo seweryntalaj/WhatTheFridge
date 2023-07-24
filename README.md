@@ -59,5 +59,5 @@ Backend:
   - Mockito 5.3
   
 Frontend:
-  * Bootstrap 5.0.3 alpha
+  * Bootstrap 5.3 alpha
   * Some vanilla JS
