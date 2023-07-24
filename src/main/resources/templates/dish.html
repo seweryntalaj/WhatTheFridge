@@ -56,18 +56,18 @@
                                 <div class="pt-1">
                                     <a th:if="${storedIngredients} != null">Ingredients you have:</a>
                                     <a th:each="i : ${storedIngredients}">
-                                        <input type="checkbox" class="btn-check ing-present" th:id="${i.name}" name="ingredient"
+                                        <input type="checkbox" class="btn-check ing-present p-1" th:id="${i.name}" name="ingredient"
                                                th:value="${i.name}"
                                                checked autocomplete="off" disabled/>
-                                        <label class="btn btn-outline-succes ing-present" th:for="${i.name}"
+                                        <label class="btn btn-outline-succes ing-present p-1" th:for="${i.name}"
                                                th:text="${i.name}"></label></a>
                                 </div>
                                 <div th:if="${missing != null AND !missing.empty}" class="pt-1">Ingredients you need:
                                     <a th:each="i: ${missing}">
-                                        <input type="checkbox" class="btn-check ing-missing" th:id="${i.name}" name="ingredient"
+                                        <input type="checkbox" class="btn-check ing-missing p-1" th:id="${i.name}" name="ingredient"
                                                th:value="${i.name}"
                                                checked autocomplete="off" disabled/>
-                                        <label class="btn btn-outline-succes ing-missing" th:for="${i.name}"
+                                        <label class="btn btn-outline-succes ing-missing p-1" th:for="${i.name}"
                                                th:text="${i.name}"></label></a>
                                 </div>
                                 <div th:unless="${missing == null OR !missing.empty}">You have all ingredients!</div>

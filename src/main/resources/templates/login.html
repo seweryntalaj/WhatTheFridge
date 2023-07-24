@@ -24,23 +24,29 @@
         </div>
         <div class="pt-3">
             <div class="container mb-3 p-3 border border-secondary-subtle rounded d-flex justify-content-center">
-                <div th:if="${param.error}">
-                    Invalid username and password.
-                </div>
-                <div th:if="${param.logout}">
-                    You have been logged out.
-                </div>
-                <form th:action="@{/login}" method="post">
-                    <div class="mb-2">
-                        <div><label>Username: <input type="text" class="form-control" id="username"
-                                                     name="username"/></label></div>
+            <div class="col text-center">
+                <div class="row d-flex justify-content-center">
+                        <div th:if="${param.error}">
+                            Invalid username and password. <br>
+                        </div>
+                        <div th:if="${param.logout}">
+                            You have been logged out.
+                        </div>
                     </div>
-                    <div class="mb-2">
-                        <div><label>Password: <input type="password" class="form-control" id="password"
-                                                     name="password"/></label></div>
+                    <div class="row d-flex justify-content-center">
+                        <form th:action="@{/login}" method="post">
+                            <div class="mb-2">
+                                <div><label>Username: <input type="text" class="form-control" id="username"
+                                                             name="username"/></label></div>
+                            </div>
+                            <div class="mb-2">
+                                <div><label>Password: <input type="password" class="form-control" id="password"
+                                                             name="password"/></label></div>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
                     </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </form>
+                </div>
             </div>
         </div>
     </div>

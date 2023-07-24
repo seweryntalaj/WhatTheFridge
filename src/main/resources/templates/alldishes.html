@@ -25,14 +25,14 @@
         <div class="pt-3">
             <div class="col-md-8 offset-md-2 p-3 border border-secondary-subtle rounded">
                 <div th:if="${!allDishes.empty}">
-                    <table class="table">
+                    <table class="table table-striped">
                         <thead>
                         <tr>
-                            <th scope="col"><a
-                                    th:href="@{'/dishes/all/' + ${currentPage} + '?sortField=id&sortDir=' + ${reverseSortDir}}">#</a>
+                            <th scope="col">
+                                <a th:href="@{'/dishes/all/' + ${currentPage} + '?sortField=id&sortDir=' + ${reverseSortDir}}">#</a>
                             </th>
-                            <th scope="col"><a
-                                    th:href="@{'/dishes/all/' + ${currentPage} + '?sortField=name&sortDir=' + ${reverseSortDir}}">NAME</a>
+                            <th scope="col">
+                                <a th:href="@{'/dishes/all/' + ${currentPage} + '?sortField=name&sortDir=' + ${reverseSortDir}}">NAME</a>
                             </th>
                             <th scope="col">ACTIONS</th>
                         </tr>
